@@ -1537,12 +1537,13 @@ document.getElementById('exp-css').addEventListener('click', () => {
   const toSlug = str => str.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const vars = palette.map((e,i) => {
     const name = e.name && e.name.trim() ? toSlug(e.name) : `color-${i+1}`;
-    return `  --${name}: ${e.hex.toUpperCase()};`;
+    return `${name} = ${e.hex.toUpperCase()},`;
+    //return `  --${name}: ${e.hex.toUpperCase()};`;
   }).join('\n');
-  navigator.clipboard.writeText(`:root {\n${vars}\n}`);
+  navigator.clipboard.writeText(`enum COLORS {\n${vars}\n}`);
   const btn = document.getElementById('exp-css');
   btn.textContent = 'COPIED!';
-  setTimeout(()=>btn.textContent='COPY CSS VARS', 1500);
+  setTimeout(()=>btn.textContent='COPY ENUM', 1500);
 });
 
 // ─── MOUSE INTERACTION ───────────────────────────────────────────────────────
