@@ -16,6 +16,8 @@
     --accent:  #ff009f;
     --accent2: #ff3c5a;
     --accent3: #ffe066;
+    --green:   #33ffb8;
+    --bg-3d:   #0a0a0f;
     --text:    #c8c8e8;
     --muted:   #4a4a7a;
     --px: 'Press Start 2P', monospace;
@@ -23,7 +25,6 @@
     --blink-dur: 0.8s;
   }
 
-  /* Pixel-perfect rendering everywhere */
   * { image-rendering: pixelated; }
 
   body {
@@ -38,7 +39,6 @@
     cursor: pointer;
   }
 
-  /* Scanline overlay on everything */
   body::after {
     content: '';
     position: fixed;
@@ -56,7 +56,6 @@
   }
   body.crt-off::after { opacity: 0; }
 
-  /* Dithered bg pattern */
   body::before {
     content: '';
     position: fixed;
@@ -68,7 +67,6 @@
     background-size: 8px 8px;
   }
 
-  /* ── TOPBAR ─────────────────────────────────────────────── */
   #topbar {
     grid-column: 1 / -1;
     background: var(--panel);
@@ -88,13 +86,6 @@
     white-space: nowrap;
     text-shadow: var(--pixel-shadow);
     letter-spacing: 0.05em;
-    animation: flicker 4s infinite;
-  }
-  @keyframes flicker {
-    0%,95%,100% { opacity: 1; }
-    96% { opacity: 0.6; }
-    97% { opacity: 1; }
-    98% { opacity: 0.4; }
   }
   #topbar .sep { flex: 1; }
 
@@ -115,8 +106,8 @@
     outline: none;
   }
   .tb-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--green);
+    border-color: var(--green);
     border-bottom-color: #000;
     border-right-color: #000;
     background: var(--panel2);
@@ -127,13 +118,12 @@
     border-right-width: 2px;
   }
   .tb-btn.primary { background: var(--accent); color: #000; border-color: #007a4d; border-bottom-color: #000; border-right-color: #000; }
-  .tb-btn.primary:hover { background: #33ffb8; }
+  .tb-btn.primary:hover { background: var(--accent); color: #000; }
   .tb-btn.danger { border-color: var(--accent2); color: var(--accent2); }
   .tb-btn.danger:hover { background: var(--accent2); color: #000; border-color: var(--accent2); }
   input[type=file] { display: none; }
   label.tb-btn { display: inline-block; }
 
-  /* ── LEFT PANEL ─────────────────────────────────────────── */
   #left-panel {
     background: var(--panel);
     border-right: 4px solid var(--border);
@@ -209,11 +199,6 @@
     color: var(--muted);
     margin-top: 3px;
   }
-  .swatch-freq {
-    font-family: var(--px);
-    font-size: 7px;
-    color: var(--muted);
-  }
   .swatch-del {
     background: none; border: none; color: var(--muted);
     cursor: pointer; font-size: 14px; padding: 0 2px; line-height: 1;
@@ -222,7 +207,6 @@
   .swatch-row:hover .swatch-del { opacity: 1; }
   .swatch-del:hover { color: var(--accent2); }
 
-  /* ── ADD COLOR ──────────────────────────────────────────── */
   #add-color-row {
     padding: 8px;
     border-top: 2px solid var(--border);
@@ -256,10 +240,9 @@
     font-weight: 700;
     line-height: 1;
   }
-  #add-btn:hover { background: #33ffb8; }
+  #add-btn:hover { background: var(--green); }
   #add-btn:active { transform: translate(2px, 2px); border-bottom-width: 2px; border-right-width: 2px; }
 
-  /* ── 3D CANVAS ──────────────────────────────────────────── */
   #canvas-wrap {
     position: relative;
     overflow: hidden;
@@ -270,7 +253,6 @@
     image-rendering: pixelated;
   }
 
-  /* Pixel corner decorations */
   #canvas-wrap::before {
     content: '';
     position: absolute;
@@ -296,7 +278,6 @@
     opacity: 0.5;
   }
 
-  /* Axis labels */
   #axis-labels {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -311,7 +292,6 @@
     text-shadow: 1px 1px 0 #000;
   }
 
-  /* Tooltip */
   #tooltip {
     position: absolute;
     background: var(--panel);
@@ -328,7 +308,6 @@
     text-shadow: 1px 1px 0 #000;
   }
 
-  /* ── RIGHT PANEL ────────────────────────────────────────── */
   #right-panel {
     background: var(--panel);
     border-left: 4px solid var(--border);
@@ -455,8 +434,8 @@
     border-radius: 0;
     cursor: pointer;
   }
-  .slider-row input[type=range]:hover::-webkit-slider-thumb { background: #33ffb8; }
-  .slider-row input[type=range]:hover::-moz-range-thumb { background: #33ffb8; }
+  .slider-row input[type=range]:hover::-webkit-slider-thumb { background: var(--green); }
+  .slider-row input[type=range]:hover::-moz-range-thumb { background: var(--green); }
   .slider-row .val {
     font-family: var(--px);
     font-size: 7px;
@@ -482,7 +461,6 @@
   .no-selection .icon { font-size: 24px; opacity: 0.3; animation: blink var(--blink-dur) step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* ── QUANTIZE ───────────────────────────────────────────── */
   #quantize-bar {
     padding: 8px;
     border-top: 2px solid var(--border);
@@ -506,10 +484,9 @@
     letter-spacing: 0.02em;
     outline: none;
   }
-  #quantize-bar .q-row button:hover { border-color: var(--accent); color: var(--accent); }
+  #quantize-bar .q-row button:hover { border-color: var(--green); color: var(--green); }
   #quantize-bar .q-row button:active { transform: translate(1px,1px); border-bottom-width: 2px; border-right-width: 2px; }
 
-  /* ── EXPORT ─────────────────────────────────────────────── */
   #export-panel {
     padding: 8px 10px;
     border-top: 2px solid var(--border);
@@ -534,12 +511,11 @@
     letter-spacing: 0.02em;
     outline: none;
   }
-  .export-row button:hover { color: var(--text); border-color: #666; }
+  .export-row button:hover { color: var(--green); border-color: var(--green); }
   .export-row button:active { transform: translate(1px,1px); border-bottom-width: 2px; border-right-width: 2px; }
   .export-row button.accent { border-color: var(--accent); color: var(--accent); }
-  .export-row button.accent:hover { background: var(--accent); color: #000; }
+  .export-row button.accent:hover { background: var(--green); color: #000; }
 
-  /* ── LOADING ────────────────────────────────────────────── */
   #loading {
     display: none;
     position: fixed; inset: 0;
@@ -557,7 +533,6 @@
   }
   #loading.show { display: flex; }
 
-  /* Pixel spinner — rotating square */
   .spinner {
     width: 24px; height: 24px;
     border: 4px solid var(--border);
@@ -567,7 +542,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── SORT TOGGLE ────────────────────────────────────────── */
   .sort-toggle { display: flex; gap: 3px; }
   .sort-btn {
     font-family: var(--px);
@@ -579,10 +553,9 @@
     cursor: pointer;
     outline: none;
   }
-  .sort-btn:hover { border-color: var(--text); color: var(--text); }
+  .sort-btn:hover { border-color: var(--green); color: var(--green); }
   .sort-btn.active { border-color: var(--accent); color: var(--accent); background: #0a1f16; }
 
-  /* ── SIZE SLIDER LABEL ──────────────────────────────────── */
   #size-label {
     font-family: var(--px);
     font-size: 6px;
@@ -636,8 +609,113 @@
     border-radius: 0;
     cursor: pointer;
   }
-  #size-slider:hover::-webkit-slider-thumb { background: #33ffb8; }
-  #size-slider:hover::-moz-range-thumb { background: #33ffb8; }
+  #size-slider:hover::-webkit-slider-thumb { background: var(--green); }
+  #size-slider:hover::-moz-range-thumb { background: var(--green); }
+  /* ── THEME PANEL ────────────────────────────────────────────────────────── */
+  #theme-panel {
+    display: none;
+    position: fixed;
+    top: 56px;
+    right: 12px;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-bottom: 4px solid #000;
+    border-right: 4px solid #000;
+    padding: 10px;
+    z-index: 200;
+    box-shadow: 4px 4px 0 #000;
+  }
+  #theme-panel.open { display: block; }
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .theme-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border: 2px solid transparent;
+  }
+  .theme-swatch:hover { border-color: var(--green); }
+  .theme-swatch.active { border-color: var(--accent); }
+  .theme-dots {
+    display: flex;
+    gap: 3px;
+  }
+  .theme-dot {
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .theme-name {
+    font-family: var(--px);
+    font-size: 5px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .theme-swatch:hover .theme-name { color: var(--green); }
+  .theme-swatch.active .theme-name { color: var(--accent); }
+
+  /* ── CUSTOM THEME EDITOR ─────────────────────────────────────────────────── */
+  #custom-theme-editor {
+    display: none;
+    margin-top: 10px;
+    border-top: 2px solid var(--border);
+    padding-top: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+  }
+  #custom-theme-editor.open { display: flex; }
+  .custom-row {
+    display: grid;
+    grid-template-columns: 70px 24px 1fr;
+    align-items: center;
+    gap: 6px;
+  }
+  .custom-row label {
+    font-family: var(--px);
+    font-size: 5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+  .custom-row input[type=color] {
+    width: 24px;
+    height: 18px;
+    border: 2px solid var(--border);
+    background: var(--panel2);
+    cursor: pointer;
+    padding: 1px;
+  }
+  .custom-row .hex-val {
+    font-family: var(--px);
+    font-size: 5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  #apply-custom-btn {
+    margin-top: 4px;
+    padding: 7px;
+    font-family: var(--px);
+    font-size: 6px;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    border-bottom: 3px solid #000;
+    border-right: 3px solid #000;
+    color: var(--accent);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    outline: none;
+    width: 100%;
+  }
+  #apply-custom-btn:hover { background: var(--accent); color: #000; }
 </style>
 </head>
 <body>
@@ -647,14 +725,32 @@
   <label class="tb-btn" for="img-upload">▲ IMPORT IMG</label>
   <input type="file" id="img-upload" accept="image/*">
   <div class="sep"></div>
-  <button class="tb-btn" id="flatBtn">▒ FLAT: ON</button>
   <button class="tb-btn" id="vizModeBtn">▣ VIEW: HSL CYLINDER</button>
   <label id="size-label">
     SIZE
     <input type="range" id="size-slider" min="0.2" max="4" step="0.1" value="1">
   </label>
-  <button class="tb-btn" id="crtBtn">▦ CRT: ON</button>
+  <button class="tb-btn" id="crtBtn" style="border-color:var(--accent);color:var(--accent)">▦ CRT: ON</button>
+  <button class="tb-btn" id="themeBtn">◈ THEME</button>
   <button class="tb-btn danger" id="clearBtn">✕ CLEAR</button>
+</div>
+
+<!-- THEME PICKER -->
+<div id="theme-panel">
+  <div class="theme-grid" id="theme-grid"></div>
+  <div id="custom-theme-editor">
+    <div class="custom-row"><label>BACKGROUND</label><input type="color" id="ct-bg" value="#0a0a0f"><span class="hex-val" id="ctv-bg">#0a0a0f</span></div>
+    <div class="custom-row"><label>PANEL</label><input type="color" id="ct-panel" value="#0f0f1a"><span class="hex-val" id="ctv-panel">#0f0f1a</span></div>
+    <div class="custom-row"><label>PANEL 2</label><input type="color" id="ct-panel2" value="#14141f"><span class="hex-val" id="ctv-panel2">#14141f</span></div>
+    <div class="custom-row"><label>BORDER</label><input type="color" id="ct-border" value="#2a2a4a"><span class="hex-val" id="ctv-border">#2a2a4a</span></div>
+    <div class="custom-row"><label>TEXT</label><input type="color" id="ct-text" value="#c8c8e8"><span class="hex-val" id="ctv-text">#c8c8e8</span></div>
+    <div class="custom-row"><label>MUTED</label><input type="color" id="ct-muted" value="#4a4a7a"><span class="hex-val" id="ctv-muted">#4a4a7a</span></div>
+    <div class="custom-row"><label>ACCENT</label><input type="color" id="ct-accent" value="#ff009f"><span class="hex-val" id="ctv-accent">#ff009f</span></div>
+    <div class="custom-row"><label>ACCENT 2</label><input type="color" id="ct-accent2" value="#ff3c5a"><span class="hex-val" id="ctv-accent2">#ff3c5a</span></div>
+    <div class="custom-row"><label>HOVER</label><input type="color" id="ct-green" value="#33ffb8"><span class="hex-val" id="ctv-green">#33ffb8</span></div>
+    <div class="custom-row"><label>3D BG</label><input type="color" id="ct-bg3d" value="#0a0a0f"><span class="hex-val" id="ctv-bg3d">#0a0a0f</span></div>
+    <button id="apply-custom-btn">▶ APPLY CUSTOM</button>
+  </div>
 </div>
 
 <!-- LEFT: Swatch list -->
@@ -664,7 +760,6 @@
     <div class="sort-toggle">
       <button class="sort-btn active" data-sort="hue">HUE</button>
       <button class="sort-btn" data-sort="lum">LUM</button>
-      <button class="sort-btn" data-sort="freq">FREQ</button>
     </div>
   </div>
   <div id="swatches"></div>
@@ -755,18 +850,21 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let palette = []; // { hex, r, g, b, h, s, l, freq, sphere }
+let palette = []; // { hex, r, g, b, h, s, l, sprite }
 let selectedIndex = -1;
 let sortMode = 'hue';
-let flatShading = true;
 let suppressEditorUpdate = false;
-let vizMode = 'hsl-bicone'; // 'hsl-cylinder' | 'hsl-bicone' | 'rgb'
+let vizMode = 'hsl-bicone';
 
 // ─── THREE SETUP ─────────────────────────────────────────────────────────────
 const wrap = document.getElementById('canvas-wrap');
 const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true, alpha: true });
-renderer.setPixelRatio(1); // Force pixel-perfect, no anti-aliasing
-renderer.setClearColor(0x0a0a0f, 1);
+renderer.setPixelRatio(1);
+function syncBg3d() {
+  const hex = getComputedStyle(document.documentElement).getPropertyValue('--bg-3d').trim();
+  renderer.setClearColor(new THREE.Color(hex), 1);
+}
+syncBg3d();
 renderer.domElement.style.imageRendering = 'pixelated';
 wrap.appendChild(renderer.domElement);
 
@@ -778,20 +876,11 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 orbitControls.enableDamping = true;
 orbitControls.dampingFactor = 0.07;
 
-// Lights
-scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-const dLight = new THREE.DirectionalLight(0xffffff, 1.2);
-dLight.position.set(5, 8, 5);
-scene.add(dLight);
-const hLight = new THREE.HemisphereLight(0xc8ff57, 0x1a1a2e, 0.4);
-scene.add(hLight);
 
-// Grid
 const grid = new THREE.GridHelper(6, 24, 0x1a1a2e, 0x0f0f1a);
 grid.position.y = -1;
 scene.add(grid);
 
-// Guide geometry group — rebuilt when vizMode changes
 const guideGroup = new THREE.Group();
 scene.add(guideGroup);
 
@@ -823,7 +912,6 @@ function buildGuides() {
       guideGroup.add(mkLine([0,0,0],[Math.cos(a)*2,0,Math.sin(a)*2], 0x334433, 0.25));
     }
   } else if (vizMode === 'hsl-bicone') {
-    // Latitude rings that taper toward poles
     const levels = [
       { y: -1,   r: 0.001 },
       { y: -0.5, r: 1.0   },
@@ -841,7 +929,6 @@ function buildGuides() {
       mesh.position.y = y;
       guideGroup.add(mesh);
     });
-    // Silhouette lines along 4 meridians
     for (let i = 0; i < 4; i++) {
       const a = (i/4)*Math.PI*2;
       const pts = levels.map(({y,r}) => new THREE.Vector3(Math.cos(a)*r, y, Math.sin(a)*r));
@@ -850,7 +937,6 @@ function buildGuides() {
     }
     guideGroup.add(mkLine([0,-1.2,0],[0,1.2,0], 0x444466));
   } else {
-    // RGB cube wireframe
     const cubeGeo = new THREE.BoxGeometry(2, 2, 2);
     const cubeEdges = new THREE.EdgesGeometry(cubeGeo);
     guideGroup.add(new THREE.LineSegments(cubeEdges, new THREE.LineBasicMaterial({ color: 0x2a2a45, transparent: true, opacity: 0.5 })));
@@ -872,11 +958,9 @@ function buildGuides() {
   }
 }
 
-// Spheres group
 const group = new THREE.Group();
 scene.add(group);
 
-// Raycaster
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -921,17 +1005,17 @@ function colorDist(a, b) {
 }
 
 // ─── PALETTE MANAGEMENT ──────────────────────────────────────────────────────
-function buildEntry(hex, freq=1) {
+function buildEntry(hex) {
   const {r,g,b} = hexToRgb(hex);
   const {h,s,l} = rgbToHsl(r,g,b);
-  return { hex, r, g, b, h, s, l, freq, sphere: null };
+  return { hex, r, g, b, h, s, l, sprite: null };
 }
 
-function addColor(hex, freq=1) {
+function addColor(hex) {
   if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
   hex = hex.toLowerCase();
   if (palette.find(e=>e.hex===hex)) return;
-  palette.push(buildEntry(hex, freq));
+  palette.push(buildEntry(hex));
   rebuildScene();
   renderSwatches();
 }
@@ -947,8 +1031,7 @@ function removeColor(i) {
 function updateColor(i, newHex) {
   if (!/^#[0-9a-f]{6}$/i.test(newHex)) return;
   newHex = newHex.toLowerCase();
-  const freq = palette[i].freq;
-  palette[i] = buildEntry(newHex, freq);
+  palette[i] = buildEntry(newHex);
   rebuildScene();
   renderSwatches();
 }
@@ -960,9 +1043,8 @@ function deselectAll() {
   document.getElementById('editor-fields').style.display = 'none';
   group.children.forEach(sg => {
     sg.scale.setScalar(1.0);
-    sg.children.forEach(m => {
-      if (m.userData.isOutline) m.material.uniforms.uOutlineColor.value.set(0,0,0);
-    });
+    const border = sg.getObjectByName('border');
+    if (border) border.visible = false;
   });
 }
 
@@ -974,25 +1056,19 @@ function selectColor(i) {
 
   group.children.forEach((sg, j) => {
     sg.scale.setScalar(1.0);
-    sg.children.forEach(m => {
-      if (m.userData.isOutline) {
-        m.material.uniforms.uOutlineColor.value.set(j===i ? 1 : 0, j===i ? 1 : 0, j===i ? 1 : 0);
-      }
-    });
+    const border = sg.getObjectByName('border');
+    if (border) border.visible = (j === i);
   });
 
   populateEditor(i);
 }
 
 // ─── 3D SCENE ─────────────────────────────────────────────────────────────────
-let sphereScale = 1.0; // multiplier controlled by slider
-const SPHERE_BASE = 0.09;
-const SPHERE_MAX = 0.22;
+let sphereScale = 1.0;
+const SPRITE_BASE = 0.18;
 
 function hslToPos(h, s, l) {
   const angle = h * Math.PI * 2;
-  // bicone: radius tapers to 0 at l=0 and l=1, max at l=0.5
-  // cylinder: radius = s directly
   const taper = vizMode === 'hsl-bicone' ? 1 - Math.abs(l * 2 - 1) : 1;
   const radius = s * 2 * taper;
   return new THREE.Vector3(Math.cos(angle)*radius, l*2-1, Math.sin(angle)*radius);
@@ -1002,120 +1078,80 @@ function rgbToPos(r, g, b) {
   return new THREE.Vector3((r/255)*2-1, (g/255)*2-1, (b/255)*2-1);
 }
 
-function makeGeometry(size) {
-  return new THREE.SphereGeometry(size, 20, 20);
+// Draw a colored square with a thin dark border onto a canvas, return texture
+function makeSquareTexture(hex) {
+  const S = 64;
+  const c = document.createElement('canvas');
+  c.width = S; c.height = S;
+  const ctx = c.getContext('2d');
+  // Solid color fill
+  ctx.fillStyle = hex;
+  ctx.fillRect(0, 0, S, S);
+  // Thin dark pixel border for definition
+  ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1.5, 1.5, S - 3, S - 3);
+  const tex = new THREE.CanvasTexture(c);
+  tex.magFilter = THREE.NearestFilter;
+  tex.minFilter = THREE.NearestFilter;
+  return tex;
 }
 
-// ─── CEL SHADER ──────────────────────────────────────────────────────────────
-const CEL_VERT = `
-  varying vec3 vNormal;
-  void main() {
-    vNormal     = normalize(normalMatrix * normal);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-const CEL_FRAG = `
-  uniform vec3  uColor;
-  uniform vec3  uLightDir;
-  varying vec3  vNormal;
+function makeSprite(entry, isSelected, size) {
+  const spriteGroup = new THREE.Group();
 
-  void main() {
-    vec3  n    = normalize(vNormal);
-    float diff = dot(n, uLightDir);
+  // Selection border plane (slightly larger, rendered behind via renderOrder)
+  const borderGeo = new THREE.PlaneGeometry(size * 1.28, size * 1.28);
+  const borderMat = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, depthWrite: false });
+  const border = new THREE.Mesh(borderGeo, borderMat);
+  border.renderOrder = 0;
+  border.name = 'border';
+  border.visible = isSelected;
+  spriteGroup.add(border);
 
-    // Three bands: highlight = 140% brightness, lit = 100% brightness, shadow = 60% brightness
-    float band = diff > 0.0 ? 1.0 : 0.6;
-    band = diff > 0.9 ? 1.4 : band;
+  // Main color plane (on top)
+  const geo = new THREE.PlaneGeometry(size, size);
+  const tex = makeSquareTexture(entry.hex);
+  const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.renderOrder = 1;
+  mesh.userData.isFill = true;
+  spriteGroup.add(mesh);
 
-    vec3 lit = uColor * band;
-
-    gl_FragColor = vec4(clamp(lit, 0.0, 1.0), 1.0);
-  }
-`;
-
-const OUTLINE_VERT = `
-  void main() {
-    vec3 pos = position + normal * 0.018;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-  }
-`;
-const OUTLINE_FRAG = `
-  uniform vec3 uOutlineColor;
-  void main() { gl_FragColor = vec4(uOutlineColor, 1.0); }
-`;
-
-function makeCelMaterial(hex) {
-  const c = new THREE.Color(hex);
-  const lightDir = new THREE.Vector3(5, 5, 5).normalize();
-  return new THREE.ShaderMaterial({
-    vertexShader: CEL_VERT,
-    fragmentShader: CEL_FRAG,
-    uniforms: {
-      uColor:    { value: c },
-      uLightDir: { value: lightDir },
-    }
-  });
-}
-
-function makeOutlineMaterial(selected=false) {
-  return new THREE.ShaderMaterial({
-    vertexShader: OUTLINE_VERT,
-    fragmentShader: OUTLINE_FRAG,
-    side: THREE.BackSide,
-    uniforms: {
-      uOutlineColor: { value: selected ? new THREE.Color(1,1,1) : new THREE.Color(0,0,0) }
-    }
-  });
-}
-
-function makeFlatMaterial(hex) {
-  return new THREE.MeshBasicMaterial({ color: new THREE.Color(hex) });
+  return spriteGroup;
 }
 
 function rebuildScene() {
-  // remove old spheres (each entry is a Group: outline + cel mesh)
   while(group.children.length) {
     const obj = group.children[0];
-    obj.children.forEach(m => { m.geometry?.dispose(); m.material?.dispose(); });
+    obj.children.forEach(m => {
+      m.geometry?.dispose();
+      if (m.material?.map) m.material.map.dispose();
+      m.material?.dispose();
+    });
     group.remove(obj);
   }
-  const freqs = palette.map(e=>e.freq);
-  const maxFreq = Math.max(...freqs, 1);
+
+  const size = SPRITE_BASE * sphereScale;
 
   palette.forEach((entry, i) => {
-    const size = (SPHERE_BASE + (entry.freq/maxFreq)*(SPHERE_MAX-SPHERE_BASE)) * sphereScale;
-    const geo  = makeGeometry(size);
     const isSelected = i === selectedIndex;
-
-    const sphereGroup = new THREE.Group();
-    sphereGroup.userData.index = i;
-
-    if (flatShading) {
-      const outlineGeo = makeGeometry(size);
-      const outline = new THREE.Mesh(outlineGeo, makeOutlineMaterial(isSelected));
-      outline.userData.isOutline = true;
-      sphereGroup.add(outline);
-      const mesh = new THREE.Mesh(geo, makeFlatMaterial(entry.hex));
-      mesh.userData.index = i;
-      sphereGroup.add(mesh);
-    } else {
-      const outlineGeo = makeGeometry(size);
-      const outline = new THREE.Mesh(outlineGeo, makeOutlineMaterial(isSelected));
-      outline.userData.isOutline = true;
-      sphereGroup.add(outline);
-      const celMesh = new THREE.Mesh(geo, makeCelMaterial(entry.hex));
-      celMesh.userData.index = i;
-      sphereGroup.add(celMesh);
-    }
-
-    sphereGroup.position.copy(
+    const sg = makeSprite(entry, isSelected, size);
+    sg.userData.index = i;
+    sg.position.copy(
       vizMode === 'rgb'
         ? rgbToPos(entry.r, entry.g, entry.b)
         : hslToPos(entry.h, entry.s, entry.l)
     );
-    sphereGroup.scale.setScalar(isSelected ? 1.18 : 1.0);
-    group.add(sphereGroup);
-    entry.sphere = sphereGroup;
+    group.add(sg);
+    entry.sprite = sg;
+  });
+}
+
+// Billboard: face all sprite groups toward camera each frame
+function billboardAll() {
+  group.children.forEach(sg => {
+    sg.quaternion.copy(camera.quaternion);
   });
 }
 
@@ -1124,7 +1160,6 @@ function sortedIndices() {
   const idxs = palette.map((_,i)=>i);
   if (sortMode === 'hue') idxs.sort((a,b)=>palette[a].h-palette[b].h);
   else if (sortMode === 'lum') idxs.sort((a,b)=>palette[a].l-palette[b].l);
-  else if (sortMode === 'freq') idxs.sort((a,b)=>palette[b].freq-palette[a].freq);
   return idxs;
 }
 
@@ -1148,10 +1183,6 @@ function renderSwatches() {
     info.innerHTML = `<div class="swatch-hex">${e.hex.toUpperCase()}</div>
       <div class="swatch-hsl">H${Math.round(e.h*360)} S${Math.round(e.s*100)} L${Math.round(e.l*100)}</div>`;
 
-    const freq = document.createElement('span');
-    freq.className = 'swatch-freq';
-    if (e.freq > 1) freq.textContent = e.freq > 999 ? (e.freq/1000).toFixed(1)+'k' : e.freq;
-
     const del = document.createElement('button');
     del.className = 'swatch-del';
     del.textContent = '×';
@@ -1160,7 +1191,6 @@ function renderSwatches() {
 
     row.appendChild(chip);
     row.appendChild(info);
-    row.appendChild(freq);
     row.appendChild(del);
     row.addEventListener('click', () => selectColor(i));
     container.appendChild(row);
@@ -1233,7 +1263,6 @@ document.getElementById('img-upload').addEventListener('change', e => {
     loading.classList.add('show');
 
     setTimeout(() => {
-      // Draw at native size with nearest-neighbor — critical for pixel art
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
@@ -1242,17 +1271,13 @@ document.getElementById('img-upload').addEventListener('change', e => {
       ctx.drawImage(img, 0, 0);
       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-      // Count exact pixel colors
-      const colorMap = new Map();
+      const colorSet = new Set();
       for (let i = 0; i < data.length; i += 4) {
         if (data[i+3] < 128) continue;
-        const hex = rgbToHex(data[i], data[i+1], data[i+2]);
-        colorMap.set(hex, (colorMap.get(hex) || 0) + 1);
+        colorSet.add(rgbToHex(data[i], data[i+1], data[i+2]));
       }
 
-      palette = [...colorMap.entries()]
-        .map(([hex, freq]) => ({ ...buildEntry(hex, freq) }))
-        .sort((a, b) => b.freq - a.freq);
+      palette = [...colorSet].map(hex => buildEntry(hex));
 
       rebuildScene();
       renderSwatches();
@@ -1302,15 +1327,6 @@ document.getElementById('size-slider').addEventListener('input', e => {
 });
 
 
-document.getElementById('flatBtn').addEventListener('click', () => {
-  flatShading = !flatShading;
-  document.getElementById('flatBtn').textContent = `▒ FLAT: ${flatShading ? 'ON' : 'OFF'}`;
-  document.getElementById('flatBtn').style.borderColor = flatShading ? 'var(--accent)' : '';
-  document.getElementById('flatBtn').style.color = flatShading ? 'var(--accent)' : '';
-  rebuildScene();
-  if (selectedIndex >= 0) selectColor(selectedIndex);
-});
-
 // ─── VIZ MODE ────────────────────────────────────────────────────────────────
 const VIZ_MODES = [
   { id: 'hsl-cylinder', label: '▣ VIEW: HSL CYL',    hint: 'Y: LIGHTNESS \u00a0·\u00a0 RADIUS: SATURATION \u00a0·\u00a0 ANGLE: HUE' },
@@ -1321,25 +1337,23 @@ document.getElementById('vizModeBtn').addEventListener('click', () => {
   const idx = VIZ_MODES.findIndex(m => m.id === vizMode);
   const next = VIZ_MODES[(idx + 1) % VIZ_MODES.length];
   vizMode = next.id;
-  const btn = document.getElementById('vizModeBtn');
-  btn.textContent = next.label;
- // btn.style.borderColor = vizMode === 'rgb' ? 'var(--accent)' : vizMode === 'hsl-bicone' ? 'var(--accent)' : '';
- // btn.style.color = vizMode === 'rgb' ? 'var(--accent)' : vizMode === 'hsl-bicone' ? 'var(--accent)' : '';
+  document.getElementById('vizModeBtn').textContent = next.label;
   document.getElementById('axis-hint').innerHTML = next.hint;
   buildGuides();
   rebuildScene();
   if (selectedIndex >= 0) selectColor(selectedIndex);
 });
 
-// ─── CRT TOGGLE ──────────────────────────────────────────────────────────────
+// ─── UI SIZE SLIDER ───────────────────────────────────────────────────────────
+
 let crtOn = true;
 document.getElementById('crtBtn').addEventListener('click', () => {
   crtOn = !crtOn;
   document.body.classList.toggle('crt-off', !crtOn);
   const btn = document.getElementById('crtBtn');
   btn.textContent = `▦ CRT: ${crtOn ? 'ON' : 'OFF'}`;
-  btn.style.borderColor = crtOn ? '' : 'var(--accent)';
-  btn.style.color = crtOn ? '' : 'var(--accent)';
+  btn.style.borderColor = crtOn ? 'var(--accent)' : '';
+  btn.style.color = crtOn ? 'var(--accent)' : '';
 });
 
 // ─── CLEAR ───────────────────────────────────────────────────────────────────
@@ -1363,11 +1377,8 @@ document.getElementById('exp-swatches').addEventListener('click', () => {
   c.width = W; c.height = H;
   const ctx = c.getContext('2d');
 
-  // BG
   ctx.fillStyle = '#0e0e10';
   ctx.fillRect(0,0,W,H);
-
-  // Title
   ctx.fillStyle = '#c8ff57';
   ctx.font = 'bold 12px monospace';
   ctx.fillText(`PALETTE — ${palette.length} COLORS`, PAD, PAD+10);
@@ -1426,15 +1437,15 @@ wrap.addEventListener('mousemove', e => {
   raycaster.setFromCamera(mouse, camera);
   const hits = raycaster.intersectObjects(group.children, true);
   if (hits.length) {
-    // walk up to find the Group with userData.index
     let obj = hits[0].object;
     while (obj && obj.userData.index === undefined) obj = obj.parent;
-    const idx = obj?.userData.index ?? hits[0].object.userData.index;
+    const idx = obj?.userData?.index;
+    if (idx === undefined) { tooltip.style.opacity = '0'; wrap.style.cursor = 'default'; return; }
     const p = palette[idx];
     tooltip.style.opacity = '1';
     tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
     tooltip.style.top = (e.clientY - rect.top - 8) + 'px';
-    tooltip.textContent = p.hex.toUpperCase() + (p.freq>1 ? `  ×${p.freq}` : '');
+    tooltip.textContent = p.hex.toUpperCase();
     wrap.style.cursor = 'pointer';
   } else {
     tooltip.style.opacity = '0';
@@ -1451,7 +1462,8 @@ wrap.addEventListener('click', e => {
   if (hits.length) {
     let obj = hits[0].object;
     while (obj && obj.userData.index === undefined) obj = obj.parent;
-    const idx = obj?.userData.index ?? hits[0].object.userData.index;
+    const idx = obj?.userData?.index;
+    if (idx === undefined) { deselectAll(); return; }
     selectColor(idx);
     const rows = document.querySelectorAll('.swatch-row');
     rows.forEach(r=>{ if(+r.dataset.idx===idx) r.scrollIntoView({block:'nearest'}); });
@@ -1465,7 +1477,6 @@ window.addEventListener('keydown', e => { if(e.key==='Escape') deselectAll(); })
 // ─── RESIZE ──────────────────────────────────────────────────────────────────
 function resize() {
   const W = wrap.clientWidth, H = wrap.clientHeight;
-  // Render at half resolution, scale up via CSS for pixel art look
   const RW = Math.floor(W / 2), RH = Math.floor(H / 2);
   camera.aspect = RW / RH;
   camera.updateProjectionMatrix();
@@ -1480,16 +1491,211 @@ resize();
 function animate() {
   requestAnimationFrame(animate);
   orbitControls.update();
+  billboardAll();
   renderer.render(scene, camera);
 }
 animate();
 
+// ─── THEME SYSTEM ─────────────────────────────────────────────────────────────
+const THEMES = [
+  {
+    id: 'midnight',
+    name: 'MIDNIGHT',
+    vars: { '--bg':'#0a0a0f','--panel':'#0f0f1a','--panel2':'#14141f','--border':'#2a2a4a','--text':'#c8c8e8','--muted':'#4a4a7a','--accent':'#ff009f','--accent2':'#ff3c5a','--green':'#33ffb8','--bg-3d':'#0a0a0f' }
+  },
+  {
+    id: 'forest',
+    name: 'FOREST',
+    vars: { '--bg':'#060f08','--panel':'#0a1a0d','--panel2':'#0f2014','--border':'#1a3d22','--text':'#b8e8c0','--muted':'#3a6644','--accent':'#00ff7a','--accent2':'#ffcc00','--green':'#80ffb0','--bg-3d':'#060f08' }
+  },
+  {
+    id: 'amber',
+    name: 'AMBER',
+    vars: { '--bg':'#0f0a00','--panel':'#1a1200','--panel2':'#211800','--border':'#3d2e00','--text':'#f0d090','--muted':'#7a5c00','--accent':'#ffaa00','--accent2':'#ff5500','--green':'#ffe066','--bg-3d':'#0f0a00' }
+  },
+  {
+    id: 'ocean',
+    name: 'OCEAN',
+    vars: { '--bg':'#00080f','--panel':'#00101a','--panel2':'#001520','--border':'#003d5c','--text':'#a0d8f0','--muted':'#1a5070','--accent':'#00cfff','--accent2':'#ff4488','--green':'#00ffcc','--bg-3d':'#00080f' }
+  },
+  {
+    id: 'void',
+    name: 'VOID',
+    vars: { '--bg':'#000000','--panel':'#0a0a0a','--panel2':'#111111','--border':'#2a2a2a','--text':'#dddddd','--muted':'#444444','--accent':'#ffffff','--accent2':'#888888','--green':'#cccccc','--bg-3d':'#000000' }
+  },
+  {
+    id: 'crimson',
+    name: 'CRIMSON',
+    vars: { '--bg':'#0f0004','--panel':'#1a0008','--panel2':'#22000c','--border':'#4a001a','--text':'#f0b0c0','--muted':'#7a2040','--accent':'#ff2255','--accent2':'#ff8800','--green':'#ff88aa','--bg-3d':'#0f0004' }
+  },
+  {
+    id: 'lavender',
+    name: 'LAVENDER',
+    vars: { '--bg':'#07050f','--panel':'#100d1a','--panel2':'#151220','--border':'#352a55','--text':'#d0c8f0','--muted':'#5a4a88','--accent':'#bb88ff','--accent2':'#ff88cc','--green':'#88ffdd','--bg-3d':'#07050f' }
+  },
+  {
+    id: 'slate',
+    name: 'SLATE',
+    vars: { '--bg':'#080c10','--panel':'#0e1318','--panel2':'#131a20','--border':'#253040','--text':'#c0ccd8','--muted':'#405060','--accent':'#4488ff','--accent2':'#ff6644','--green':'#44ffcc','--bg-3d':'#080c10' }
+  },
+  {
+    id: 'toxic',
+    name: 'TOXIC',
+    vars: { '--bg':'#050a00','--panel':'#0a1400','--panel2':'#0f1c00','--border':'#2a4400','--text':'#ccff44','--muted':'#5a8800','--accent':'#aaff00','--accent2':'#ff4400','--green':'#eeff88','--bg-3d':'#050a00' }
+  },
+];
+
+let activeTheme = 'midnight';
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  Object.entries(theme.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+  activeTheme = theme.id;
+  document.querySelectorAll('.theme-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.theme === theme.id);
+  });
+  document.getElementById('custom-theme-editor').classList.remove('open');
+  // Re-apply CRT button accent color
+  const crtBtn = document.getElementById('crtBtn');
+  if (crtOn) { crtBtn.style.borderColor = 'var(--accent)'; crtBtn.style.color = 'var(--accent)'; }
+  syncBg3d();
+}
+
+function buildThemePanel() {
+  const grid = document.getElementById('theme-grid');
+  THEMES.forEach(t => {
+    const swatch = document.createElement('div');
+    swatch.className = 'theme-swatch' + (t.id === activeTheme ? ' active' : '');
+    swatch.dataset.theme = t.id;
+
+    const dots = document.createElement('div');
+    dots.className = 'theme-dots';
+    [t.vars['--bg'], t.vars['--accent'], t.vars['--green'], t.vars['--text']].forEach(c => {
+      const dot = document.createElement('div');
+      dot.className = 'theme-dot';
+      dot.style.background = c;
+      dots.appendChild(dot);
+    });
+
+    const name = document.createElement('div');
+    name.className = 'theme-name';
+    name.textContent = t.name;
+
+    swatch.appendChild(dots);
+    swatch.appendChild(name);
+    swatch.addEventListener('click', () => {
+      applyTheme(t);
+      document.getElementById('custom-theme-editor').classList.remove('open');
+      document.getElementById('theme-panel').classList.remove('open');
+      document.getElementById('themeBtn').style.borderColor = '';
+      document.getElementById('themeBtn').style.color = '';
+    });
+    grid.appendChild(swatch);
+  });
+
+  // CUSTOM swatch entry
+  const customSwatch = document.createElement('div');
+  customSwatch.className = 'theme-swatch';
+  customSwatch.dataset.theme = 'custom';
+  customSwatch.id = 'custom-swatch';
+
+  const customDots = document.createElement('div');
+  customDots.className = 'theme-dots';
+  customDots.id = 'custom-dots';
+  ['#0a0a0f','#ff009f','#33ffb8','#c8c8e8'].forEach(c => {
+    const dot = document.createElement('div');
+    dot.className = 'theme-dot';
+    dot.style.background = c;
+    customDots.appendChild(dot);
+  });
+
+  const customName = document.createElement('div');
+  customName.className = 'theme-name';
+  customName.textContent = 'CUSTOM';
+
+  customSwatch.appendChild(customDots);
+  customSwatch.appendChild(customName);
+  customSwatch.addEventListener('click', () => {
+    document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
+    customSwatch.classList.add('active');
+    document.getElementById('custom-theme-editor').classList.toggle('open');
+  });
+  grid.appendChild(customSwatch);
+}
+
+// Custom theme color pickers — live hex label update
+const CUSTOM_FIELDS = [
+  { id: 'ct-bg',      var: '--bg',      valId: 'ctv-bg' },
+  { id: 'ct-panel',   var: '--panel',   valId: 'ctv-panel' },
+  { id: 'ct-panel2',  var: '--panel2',  valId: 'ctv-panel2' },
+  { id: 'ct-border',  var: '--border',  valId: 'ctv-border' },
+  { id: 'ct-text',    var: '--text',    valId: 'ctv-text' },
+  { id: 'ct-muted',   var: '--muted',   valId: 'ctv-muted' },
+  { id: 'ct-accent',  var: '--accent',  valId: 'ctv-accent' },
+  { id: 'ct-accent2', var: '--accent2', valId: 'ctv-accent2' },
+  { id: 'ct-green',   var: '--green',   valId: 'ctv-green' },
+  { id: 'ct-bg3d',    var: '--bg-3d',   valId: 'ctv-bg3d' },
+];
+
+CUSTOM_FIELDS.forEach(({ id, valId, var: cssVar }) => {
+  document.getElementById(id).addEventListener('input', e => {
+    document.getElementById(valId).textContent = e.target.value;
+    if (cssVar === '--bg-3d') {
+      document.documentElement.style.setProperty('--bg-3d', e.target.value);
+      syncBg3d();
+    }
+    // Update the custom swatch dots live
+    const dots = document.querySelectorAll('#custom-dots .theme-dot');
+    const dotMap = { '--bg': 0, '--accent': 1, '--green': 2, '--text': 3 };
+    CUSTOM_FIELDS.forEach(f => {
+      if (dotMap[f.var] !== undefined) {
+        dots[dotMap[f.var]].style.background = document.getElementById(f.id).value;
+      }
+    });
+  });
+});
+
+document.getElementById('apply-custom-btn').addEventListener('click', () => {
+  const root = document.documentElement;
+  CUSTOM_FIELDS.forEach(({ id, var: cssVar }) => {
+    root.style.setProperty(cssVar, document.getElementById(id).value);
+  });
+  activeTheme = 'custom';
+  document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
+  document.getElementById('custom-swatch').classList.add('active');
+  const crtBtn = document.getElementById('crtBtn');
+  if (crtOn) { crtBtn.style.borderColor = 'var(--accent)'; crtBtn.style.color = 'var(--accent)'; }
+  syncBg3d();
+  document.getElementById('theme-panel').classList.remove('open');
+  document.getElementById('themeBtn').style.borderColor = '';
+  document.getElementById('themeBtn').style.color = '';
+});
+
+buildThemePanel();
+
+document.getElementById('themeBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  const panel = document.getElementById('theme-panel');
+  const btn = document.getElementById('themeBtn');
+  const open = panel.classList.toggle('open');
+  btn.style.borderColor = open ? 'var(--accent)' : '';
+  btn.style.color = open ? 'var(--accent)' : '';
+});
+
+document.addEventListener('click', e => {
+  if (!document.getElementById('theme-panel').contains(e.target) && e.target.id !== 'themeBtn') {
+    document.getElementById('theme-panel').classList.remove('open');
+    document.getElementById('themeBtn').style.borderColor = '';
+    document.getElementById('themeBtn').style.color = '';
+  }
+});
+
 // ─── SEED PALETTE ────────────────────────────────────────────────────────────
 [
-  {hex:'#ff0000',freq:1},{hex:'#ffff00',freq:1},{hex:'#00ff00',freq:1},
-  {hex:'#00ffff',freq:1},{hex:'#0000ff',freq:1},{hex:'#ff00ff',freq:1},
-  {hex:'#ffffff',freq:1},{hex:'#000000',freq:1},{hex:'#808080',freq:1}
-].forEach(e => { palette.push(buildEntry(e.hex, e.freq)); });
+  '#ff0000','#ffff00','#00ff00',
+  '#00ffff','#0000ff','#ff00ff',
+  '#ffffff','#000000','#808080'
+].forEach(hex => palette.push(buildEntry(hex)));
 buildGuides();
 rebuildScene();
 renderSwatches();
