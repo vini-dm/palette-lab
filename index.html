@@ -200,13 +200,43 @@
     color: var(--muted);
     margin-top: 3px;
   }
+  .swatch-name-input {
+    font-family: var(--px);
+    font-size: 8px;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-top: 2px;
+    padding: 0;
+    cursor: text;
+  }
+  .swatch-name-input::placeholder { color: var(--border); }
+  .swatch-name-input:focus { color: var(--text); border-bottom: 1px solid var(--accent); }
   .swatch-del {
-    background: none; border: none; color: var(--muted);
-    cursor: pointer; font-size: 14px; padding: 0 2px; line-height: 1;
-    opacity: 0; font-family: var(--px);
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    background: var(--panel2);
+    border: 2px solid var(--border);
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--px);
+    font-size: 10px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    padding: 0;
+    outline: none;
   }
   .swatch-row:hover .swatch-del { opacity: 1; }
-  .swatch-del:hover { color: var(--accent2); }
+  .swatch-del:hover { color: var(--accent2); border-color: var(--accent2); background: var(--bg); }
+  .swatch-del:active { transform: translate(1px, 1px); border-bottom-width: 2px; border-right-width: 2px; }
 
   #add-color-row {
     padding: 8px;
@@ -288,7 +318,8 @@
     position: absolute;
     font-family: var(--px);
     font-size: 6px;
-    color: rgba(0,255,159,0.4);
+    color: var(--accent);
+    opacity: 0.45;
     letter-spacing: 0.05em;
     text-shadow: 1px 1px 0 var(--shadow);
   }
@@ -840,7 +871,7 @@
 <!-- CENTER: 3D view -->
 <div id="canvas-wrap">
   <div id="axis-labels">
-    <span class="axis-label" id="axis-hint" style="bottom:14px;right:14px;opacity:0.5">Y: LIGHTNESS &nbsp;·&nbsp; RADIUS: SATURATION &nbsp;·&nbsp; ANGLE: HUE</span>
+    <span class="axis-label" id="axis-hint" style="bottom:14px;right:14px">Y: LIGHTNESS &nbsp;·&nbsp; RADIUS: SATURATION &nbsp;·&nbsp; ANGLE: HUE</span>
   </div>
   <div id="tooltip"></div>
 </div>
@@ -1068,10 +1099,10 @@ function colorDist(a, b) {
 }
 
 // ─── PALETTE MANAGEMENT ──────────────────────────────────────────────────────
-function buildEntry(hex) {
+function buildEntry(hex, name='') {
   const {r,g,b} = hexToRgb(hex);
   const {h,s,l} = rgbToHsl(r,g,b);
-  return { hex, r, g, b, h, s, l, sprite: null };
+  return { hex, r, g, b, h, s, l, name, sprite: null };
 }
 
 function addColor(hex) {
@@ -1094,7 +1125,8 @@ function removeColor(i) {
 function updateColor(i, newHex) {
   if (!/^#[0-9a-f]{6}$/i.test(newHex)) return;
   newHex = newHex.toLowerCase();
-  palette[i] = buildEntry(newHex);
+  const name = palette[i].name;
+  palette[i] = buildEntry(newHex, name);
   rebuildScene();
   renderSwatches();
 }
@@ -1243,8 +1275,27 @@ function renderSwatches() {
 
     const info = document.createElement('div');
     info.className = 'swatch-info';
-    info.innerHTML = `<div class="swatch-hex">${e.hex.toUpperCase()}</div>
-      <div class="swatch-hsl">H${Math.round(e.h*360)} S${Math.round(e.s*100)} L${Math.round(e.l*100)}</div>`;
+
+    const hexDiv = document.createElement('div');
+    hexDiv.className = 'swatch-hex';
+    hexDiv.textContent = e.hex.toUpperCase();
+
+    const hslDiv = document.createElement('div');
+    hslDiv.className = 'swatch-hsl';
+    hslDiv.textContent = `H${Math.round(e.h*360)} S${Math.round(e.s*100)} L${Math.round(e.l*100)}`;
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'swatch-name-input';
+    nameInput.placeholder = 'name…';
+    nameInput.value = e.name || '';
+    nameInput.maxLength = 32;
+    nameInput.addEventListener('click', ev => ev.stopPropagation());
+    nameInput.addEventListener('input', ev => { palette[i].name = ev.target.value; });
+
+    info.appendChild(hexDiv);
+    info.appendChild(hslDiv);
+    info.appendChild(nameInput);
 
     const del = document.createElement('button');
     del.className = 'swatch-del';
@@ -1483,7 +1534,11 @@ document.getElementById('exp-hex').addEventListener('click', () => {
 });
 
 document.getElementById('exp-css').addEventListener('click', () => {
-  const vars = palette.map((e,i)=>`  --color-${i+1}: ${e.hex.toUpperCase()};`).join('\n');
+  const toSlug = str => str.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const vars = palette.map((e,i) => {
+    const name = e.name && e.name.trim() ? toSlug(e.name) : `color-${i+1}`;
+    return `  --${name}: ${e.hex.toUpperCase()};`;
+  }).join('\n');
   navigator.clipboard.writeText(`:root {\n${vars}\n}`);
   const btn = document.getElementById('exp-css');
   btn.textContent = 'COPIED!';
