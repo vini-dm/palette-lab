@@ -18,10 +18,11 @@
     --accent3: #ffe066;
     --green:   #33ffb8;
     --bg-3d:   #0a0a0f;
+    --shadow:  #000000;
     --text:    #c8c8e8;
     --muted:   #4a4a7a;
     --px: 'Press Start 2P', monospace;
-    --pixel-shadow: 2px 2px 0 #000;
+    --pixel-shadow: 2px 2px 0 var(--shadow);
     --blink-dur: 0.8s;
   }
 
@@ -77,7 +78,7 @@
     gap: 12px;
     position: relative;
     z-index: 10;
-    box-shadow: 0 4px 0 #000;
+    box-shadow: 0 4px 0 var(--shadow);
   }
   #topbar h1 {
     font-family: var(--px);
@@ -96,8 +97,8 @@
     background: var(--panel2);
     color: var(--muted);
     border: 2px solid var(--border);
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
+    border-bottom: 4px solid var(--shadow);
+    border-right: 4px solid var(--shadow);
     cursor: pointer;
     letter-spacing: 0.02em;
     transition: none;
@@ -108,8 +109,8 @@
   .tb-btn:hover {
     color: var(--green);
     border-color: var(--green);
-    border-bottom-color: #000;
-    border-right-color: #000;
+    border-bottom-color: var(--shadow);
+    border-right-color: var(--shadow);
     background: var(--panel2);
   }
   .tb-btn:active {
@@ -117,10 +118,10 @@
     border-bottom-width: 2px;
     border-right-width: 2px;
   }
-  .tb-btn.primary { background: var(--accent); color: #000; border-color: #007a4d; border-bottom-color: #000; border-right-color: #000; }
-  .tb-btn.primary:hover { background: var(--accent); color: #000; }
+  .tb-btn.primary { background: var(--accent); color: var(--shadow); border-color: var(--border); border-bottom-color: var(--shadow); border-right-color: var(--shadow); }
+  .tb-btn.primary:hover { background: var(--accent); color: var(--shadow); }
   .tb-btn.danger { border-color: var(--accent2); color: var(--accent2); }
-  .tb-btn.danger:hover { background: var(--accent2); color: #000; border-color: var(--accent2); }
+  .tb-btn.danger:hover { background: var(--accent2); color: var(--shadow); border-color: var(--accent2); }
   input[type=file] { display: none; }
   label.tb-btn { display: inline-block; }
 
@@ -132,7 +133,7 @@
     overflow: hidden;
     position: relative;
     z-index: 5;
-    box-shadow: 4px 0 0 #000;
+    box-shadow: 4px 0 0 var(--shadow);
   }
   .panel-header {
     font-family: var(--px);
@@ -144,7 +145,7 @@
     justify-content: space-between;
     align-items: center;
     background: var(--panel2);
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
   .panel-header span { color: var(--accent); }
 
@@ -191,7 +192,7 @@
     font-family: var(--px);
     font-size: 8px;
     color: var(--text);
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
   .swatch-hsl {
     font-family: var(--px);
@@ -218,7 +219,7 @@
     flex: 1;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
     color: var(--accent);
     font-family: var(--px);
     font-size: 8px;
@@ -229,10 +230,10 @@
   #new-hex-input::placeholder { color: var(--muted); }
   #add-btn {
     background: var(--accent);
-    border: 2px solid #007a4d;
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
-    color: #000;
+    border: 2px solid var(--border);
+    border-bottom: 4px solid var(--shadow);
+    border-right: 4px solid var(--shadow);
+    color: var(--shadow);
     font-family: var(--px);
     font-size: 14px;
     width: 36px;
@@ -289,15 +290,15 @@
     font-size: 6px;
     color: rgba(0,255,159,0.4);
     letter-spacing: 0.05em;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
 
   #tooltip {
     position: absolute;
     background: var(--panel);
     border: 2px solid var(--accent);
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
+    border-bottom: 4px solid var(--shadow);
+    border-right: 4px solid var(--shadow);
     padding: 6px 10px;
     font-family: var(--px);
     font-size: 8px;
@@ -305,7 +306,7 @@
     pointer-events: none;
     opacity: 0;
     white-space: nowrap;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
 
   #right-panel {
@@ -316,7 +317,7 @@
     overflow: hidden;
     position: relative;
     z-index: 5;
-    box-shadow: -4px 0 0 #000;
+    box-shadow: -4px 0 0 var(--shadow);
   }
   #editor {
     flex: 1;
@@ -334,8 +335,8 @@
     width: 100%;
     height: 72px;
     border: 2px solid var(--border);
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
+    border-bottom: 4px solid var(--shadow);
+    border-right: 4px solid var(--shadow);
     position: relative;
     overflow: hidden;
   }
@@ -359,13 +360,13 @@
     display: block;
     margin-bottom: 6px;
     letter-spacing: 0.05em;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
   .editor-field input[type=text] {
     width: 100%;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
     color: var(--accent);
     font-family: var(--px);
     font-size: 9px;
@@ -389,7 +390,7 @@
     font-size: 7px;
     color: var(--muted);
     text-align: center;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
   .slider-row input[type=range] {
     width: 100%;
@@ -404,8 +405,8 @@
     height: 6px;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 2px solid #000;
-    border-right: 2px solid #000;
+    border-bottom: 2px solid var(--shadow);
+    border-right: 2px solid var(--shadow);
   }
   .slider-row input[type=range]::-moz-range-track {
     height: 6px;
@@ -418,8 +419,8 @@
     height: 14px;
     background: var(--accent);
     border: none;
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     margin-top: -6px;
     cursor: pointer;
     border-radius: 0;
@@ -429,8 +430,8 @@
     height: 14px;
     background: var(--accent);
     border: none;
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     border-radius: 0;
     cursor: pointer;
   }
@@ -441,7 +442,7 @@
     font-size: 7px;
     color: var(--accent);
     text-align: right;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
 
   .no-selection {
@@ -477,8 +478,8 @@
     font-size: 6px;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     color: var(--text);
     cursor: pointer;
     letter-spacing: 0.02em;
@@ -504,8 +505,8 @@
     font-size: 6px;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     color: var(--muted);
     cursor: pointer;
     letter-spacing: 0.02em;
@@ -514,7 +515,7 @@
   .export-row button:hover { color: var(--green); border-color: var(--green); }
   .export-row button:active { transform: translate(1px,1px); border-bottom-width: 2px; border-right-width: 2px; }
   .export-row button.accent { border-color: var(--accent); color: var(--accent); }
-  .export-row button.accent:hover { background: var(--green); color: #000; }
+  .export-row button.accent:hover { background: var(--green); color: var(--shadow); }
 
   #loading {
     display: none;
@@ -564,7 +565,7 @@
     align-items: center;
     gap: 8px;
     white-space: nowrap;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 0 var(--shadow);
   }
   #size-slider {
     width: 64px;
@@ -579,8 +580,8 @@
     height: 6px;
     background: var(--bg);
     border: 2px solid var(--border);
-    border-bottom: 2px solid #000;
-    border-right: 2px solid #000;
+    border-bottom: 2px solid var(--shadow);
+    border-right: 2px solid var(--shadow);
   }
   #size-slider::-moz-range-track {
     height: 6px;
@@ -593,8 +594,8 @@
     height: 14px;
     background: var(--accent);
     border: none;
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     margin-top: -6px;
     cursor: pointer;
     border-radius: 0;
@@ -604,8 +605,8 @@
     height: 14px;
     background: var(--accent);
     border: none;
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     border-radius: 0;
     cursor: pointer;
   }
@@ -619,11 +620,11 @@
     right: 12px;
     background: var(--panel);
     border: 2px solid var(--border);
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
+    border-bottom: 4px solid var(--shadow);
+    border-right: 4px solid var(--shadow);
     padding: 10px;
     z-index: 200;
-    box-shadow: 4px 4px 0 #000;
+    box-shadow: 4px 4px 0 var(--shadow);
   }
   #theme-panel.open { display: block; }
   .theme-grid {
@@ -668,54 +669,70 @@
     margin-top: 10px;
     border-top: 2px solid var(--border);
     padding-top: 10px;
-    display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
   }
   #custom-theme-editor.open { display: flex; }
-  .custom-row {
+  .custom-grid {
     display: grid;
-    grid-template-columns: 70px 24px 1fr;
-    align-items: center;
-    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
   }
-  .custom-row label {
-    font-family: var(--px);
-    font-size: 5px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    text-align: right;
-  }
-  .custom-row input[type=color] {
-    width: 24px;
-    height: 18px;
+  .custom-btn {
+    position: relative;
+    height: 56px;
     border: 2px solid var(--border);
-    background: var(--panel2);
+    border-bottom: 3px solid var(--shadow);
+    border-right: 3px solid var(--shadow);
     cursor: pointer;
-    padding: 1px;
+    overflow: hidden;
+    padding: 0;
+    outline: none;
   }
-  .custom-row .hex-val {
+  .custom-btn:hover { border-color: var(--green); }
+  .custom-btn.active { border-color: var(--accent); }
+  .custom-btn input[type=color] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .custom-btn-fill {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .custom-btn-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    pointer-events: none;
+  }
+  .custom-btn-name {
     font-family: var(--px);
-    font-size: 5px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
+    font-size: 7px;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.9), 1px -1px 0 rgba(0,0,0,0.9), -1px 1px 0 rgba(0,0,0,0.9);
+    white-space: nowrap;
   }
-  #apply-custom-btn {
-    margin-top: 4px;
-    padding: 7px;
+  .custom-btn-hex {
     font-family: var(--px);
     font-size: 6px;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
-    color: var(--accent);
-    cursor: pointer;
-    letter-spacing: 0.04em;
-    outline: none;
-    width: 100%;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.9), 1px -1px 0 rgba(0,0,0,0.9), -1px 1px 0 rgba(0,0,0,0.9);
+    opacity: 0.9;
   }
-  #apply-custom-btn:hover { background: var(--accent); color: #000; }
+
 </style>
 </head>
 <body>
@@ -739,17 +756,63 @@
 <div id="theme-panel">
   <div class="theme-grid" id="theme-grid"></div>
   <div id="custom-theme-editor">
-    <div class="custom-row"><label>BACKGROUND</label><input type="color" id="ct-bg" value="#0a0a0f"><span class="hex-val" id="ctv-bg">#0a0a0f</span></div>
-    <div class="custom-row"><label>PANEL</label><input type="color" id="ct-panel" value="#0f0f1a"><span class="hex-val" id="ctv-panel">#0f0f1a</span></div>
-    <div class="custom-row"><label>PANEL 2</label><input type="color" id="ct-panel2" value="#14141f"><span class="hex-val" id="ctv-panel2">#14141f</span></div>
-    <div class="custom-row"><label>BORDER</label><input type="color" id="ct-border" value="#2a2a4a"><span class="hex-val" id="ctv-border">#2a2a4a</span></div>
-    <div class="custom-row"><label>TEXT</label><input type="color" id="ct-text" value="#c8c8e8"><span class="hex-val" id="ctv-text">#c8c8e8</span></div>
-    <div class="custom-row"><label>MUTED</label><input type="color" id="ct-muted" value="#4a4a7a"><span class="hex-val" id="ctv-muted">#4a4a7a</span></div>
-    <div class="custom-row"><label>ACCENT</label><input type="color" id="ct-accent" value="#ff009f"><span class="hex-val" id="ctv-accent">#ff009f</span></div>
-    <div class="custom-row"><label>ACCENT 2</label><input type="color" id="ct-accent2" value="#ff3c5a"><span class="hex-val" id="ctv-accent2">#ff3c5a</span></div>
-    <div class="custom-row"><label>HOVER</label><input type="color" id="ct-green" value="#33ffb8"><span class="hex-val" id="ctv-green">#33ffb8</span></div>
-    <div class="custom-row"><label>3D BG</label><input type="color" id="ct-bg3d" value="#0a0a0f"><span class="hex-val" id="ctv-bg3d">#0a0a0f</span></div>
-    <button id="apply-custom-btn">▶ APPLY CUSTOM</button>
+    <div class="custom-grid">
+      <button class="custom-btn" id="cb-bg">
+        <div class="custom-btn-fill" id="cbf-bg" style="background:#0a0a0f"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">BACKGROUND</span><span class="custom-btn-hex" id="cbh-bg">#0a0a0f</span></div>
+        <input type="color" id="ct-bg" value="#0a0a0f">
+      </button>
+      <button class="custom-btn" id="cb-panel">
+        <div class="custom-btn-fill" id="cbf-panel" style="background:#0f0f1a"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">PANEL</span><span class="custom-btn-hex" id="cbh-panel">#0f0f1a</span></div>
+        <input type="color" id="ct-panel" value="#0f0f1a">
+      </button>
+      <button class="custom-btn" id="cb-panel2">
+        <div class="custom-btn-fill" id="cbf-panel2" style="background:#14141f"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">PANEL 2</span><span class="custom-btn-hex" id="cbh-panel2">#14141f</span></div>
+        <input type="color" id="ct-panel2" value="#14141f">
+      </button>
+      <button class="custom-btn" id="cb-border">
+        <div class="custom-btn-fill" id="cbf-border" style="background:#2a2a4a"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">BORDER</span><span class="custom-btn-hex" id="cbh-border">#2a2a4a</span></div>
+        <input type="color" id="ct-border" value="#2a2a4a">
+      </button>
+      <button class="custom-btn" id="cb-text">
+        <div class="custom-btn-fill" id="cbf-text" style="background:#c8c8e8"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">TEXT</span><span class="custom-btn-hex" id="cbh-text">#c8c8e8</span></div>
+        <input type="color" id="ct-text" value="#c8c8e8">
+      </button>
+      <button class="custom-btn" id="cb-muted">
+        <div class="custom-btn-fill" id="cbf-muted" style="background:#4a4a7a"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">MUTED</span><span class="custom-btn-hex" id="cbh-muted">#4a4a7a</span></div>
+        <input type="color" id="ct-muted" value="#4a4a7a">
+      </button>
+      <button class="custom-btn" id="cb-accent">
+        <div class="custom-btn-fill" id="cbf-accent" style="background:#ff009f"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">ACCENT</span><span class="custom-btn-hex" id="cbh-accent">#ff009f</span></div>
+        <input type="color" id="ct-accent" value="#ff009f">
+      </button>
+      <button class="custom-btn" id="cb-accent2">
+        <div class="custom-btn-fill" id="cbf-accent2" style="background:#ff3c5a"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">ACCENT 2</span><span class="custom-btn-hex" id="cbh-accent2">#ff3c5a</span></div>
+        <input type="color" id="ct-accent2" value="#ff3c5a">
+      </button>
+      <button class="custom-btn" id="cb-green">
+        <div class="custom-btn-fill" id="cbf-green" style="background:#33ffb8"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">HOVER</span><span class="custom-btn-hex" id="cbh-green">#33ffb8</span></div>
+        <input type="color" id="ct-green" value="#33ffb8">
+      </button>
+      <button class="custom-btn" id="cb-bg3d">
+        <div class="custom-btn-fill" id="cbf-bg3d" style="background:#0a0a0f"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">3D BG</span><span class="custom-btn-hex" id="cbh-bg3d">#0a0a0f</span></div>
+        <input type="color" id="ct-bg3d" value="#0a0a0f">
+      </button>
+      <button class="custom-btn" id="cb-shadow" style="grid-column: 1 / -1">
+        <div class="custom-btn-fill" id="cbf-shadow" style="background:#000000"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">SHADOW</span><span class="custom-btn-hex" id="cbh-shadow">#000000</span></div>
+        <input type="color" id="ct-shadow" value="#000000">
+      </button>
+    </div>
   </div>
 </div>
 
@@ -1501,47 +1564,47 @@ const THEMES = [
   {
     id: 'midnight',
     name: 'MIDNIGHT',
-    vars: { '--bg':'#0a0a0f','--panel':'#0f0f1a','--panel2':'#14141f','--border':'#2a2a4a','--text':'#c8c8e8','--muted':'#4a4a7a','--accent':'#ff009f','--accent2':'#ff3c5a','--green':'#33ffb8','--bg-3d':'#0a0a0f' }
+    vars: { '--bg':'#0a0a0f','--panel':'#0f0f1a','--panel2':'#14141f','--border':'#2a2a4a','--text':'#c8c8e8','--muted':'#4a4a7a','--accent':'#ff009f','--accent2':'#ff3c5a','--green':'#33ffb8','--bg-3d':'#0a0a0f','--shadow':'#000000' }
   },
   {
     id: 'forest',
     name: 'FOREST',
-    vars: { '--bg':'#060f08','--panel':'#0a1a0d','--panel2':'#0f2014','--border':'#1a3d22','--text':'#b8e8c0','--muted':'#3a6644','--accent':'#00ff7a','--accent2':'#ffcc00','--green':'#80ffb0','--bg-3d':'#060f08' }
+    vars: { '--bg':'#060f08','--panel':'#0a1a0d','--panel2':'#0f2014','--border':'#1a3d22','--text':'#b8e8c0','--muted':'#3a6644','--accent':'#00ff7a','--accent2':'#ffcc00','--green':'#80ffb0','--bg-3d':'#060f08','--shadow':'#000000' }
   },
   {
     id: 'amber',
     name: 'AMBER',
-    vars: { '--bg':'#0f0a00','--panel':'#1a1200','--panel2':'#211800','--border':'#3d2e00','--text':'#f0d090','--muted':'#7a5c00','--accent':'#ffaa00','--accent2':'#ff5500','--green':'#ffe066','--bg-3d':'#0f0a00' }
+    vars: { '--bg':'#0f0a00','--panel':'#1a1200','--panel2':'#211800','--border':'#3d2e00','--text':'#f0d090','--muted':'#7a5c00','--accent':'#ffaa00','--accent2':'#ff5500','--green':'#ffe066','--bg-3d':'#0f0a00','--shadow':'#000000' }
   },
   {
     id: 'ocean',
     name: 'OCEAN',
-    vars: { '--bg':'#00080f','--panel':'#00101a','--panel2':'#001520','--border':'#003d5c','--text':'#a0d8f0','--muted':'#1a5070','--accent':'#00cfff','--accent2':'#ff4488','--green':'#00ffcc','--bg-3d':'#00080f' }
+    vars: { '--bg':'#00080f','--panel':'#00101a','--panel2':'#001520','--border':'#003d5c','--text':'#a0d8f0','--muted':'#1a5070','--accent':'#00cfff','--accent2':'#ff4488','--green':'#00ffcc','--bg-3d':'#00080f','--shadow':'#000000' }
   },
   {
     id: 'void',
     name: 'VOID',
-    vars: { '--bg':'#000000','--panel':'#0a0a0a','--panel2':'#111111','--border':'#2a2a2a','--text':'#dddddd','--muted':'#444444','--accent':'#ffffff','--accent2':'#888888','--green':'#cccccc','--bg-3d':'#000000' }
+    vars: { '--bg':'#000000','--panel':'#0a0a0a','--panel2':'#111111','--border':'#2a2a2a','--text':'#dddddd','--muted':'#444444','--accent':'#ffffff','--accent2':'#888888','--green':'#cccccc','--bg-3d':'#000000','--shadow':'#000000' }
   },
   {
     id: 'crimson',
     name: 'CRIMSON',
-    vars: { '--bg':'#0f0004','--panel':'#1a0008','--panel2':'#22000c','--border':'#4a001a','--text':'#f0b0c0','--muted':'#7a2040','--accent':'#ff2255','--accent2':'#ff8800','--green':'#ff88aa','--bg-3d':'#0f0004' }
+    vars: { '--bg':'#0f0004','--panel':'#1a0008','--panel2':'#22000c','--border':'#4a001a','--text':'#f0b0c0','--muted':'#7a2040','--accent':'#ff2255','--accent2':'#ff8800','--green':'#ff88aa','--bg-3d':'#0f0004','--shadow':'#000000' }
   },
   {
     id: 'lavender',
     name: 'LAVENDER',
-    vars: { '--bg':'#07050f','--panel':'#100d1a','--panel2':'#151220','--border':'#352a55','--text':'#d0c8f0','--muted':'#5a4a88','--accent':'#bb88ff','--accent2':'#ff88cc','--green':'#88ffdd','--bg-3d':'#07050f' }
+    vars: { '--bg':'#07050f','--panel':'#100d1a','--panel2':'#151220','--border':'#352a55','--text':'#d0c8f0','--muted':'#5a4a88','--accent':'#bb88ff','--accent2':'#ff88cc','--green':'#88ffdd','--bg-3d':'#07050f','--shadow':'#000000' }
   },
   {
     id: 'slate',
     name: 'SLATE',
-    vars: { '--bg':'#080c10','--panel':'#0e1318','--panel2':'#131a20','--border':'#253040','--text':'#c0ccd8','--muted':'#405060','--accent':'#4488ff','--accent2':'#ff6644','--green':'#44ffcc','--bg-3d':'#080c10' }
+    vars: { '--bg':'#080c10','--panel':'#0e1318','--panel2':'#131a20','--border':'#253040','--text':'#c0ccd8','--muted':'#405060','--accent':'#4488ff','--accent2':'#ff6644','--green':'#44ffcc','--bg-3d':'#080c10','--shadow':'#000000' }
   },
   {
     id: 'toxic',
     name: 'TOXIC',
-    vars: { '--bg':'#050a00','--panel':'#0a1400','--panel2':'#0f1c00','--border':'#2a4400','--text':'#ccff44','--muted':'#5a8800','--accent':'#aaff00','--accent2':'#ff4400','--green':'#eeff88','--bg-3d':'#050a00' }
+    vars: { '--bg':'#050a00','--panel':'#0a1400','--panel2':'#0f1c00','--border':'#2a4400','--text':'#ccff44','--muted':'#5a8800','--accent':'#aaff00','--accent2':'#ff4400','--green':'#eeff88','--bg-3d':'#050a00','--shadow':'#000000' }
   },
 ];
 
@@ -1623,27 +1686,35 @@ function buildThemePanel() {
   grid.appendChild(customSwatch);
 }
 
-// Custom theme color pickers — live hex label update
+// Custom theme color pickers — live fill + hex update
 const CUSTOM_FIELDS = [
-  { id: 'ct-bg',      var: '--bg',      valId: 'ctv-bg' },
-  { id: 'ct-panel',   var: '--panel',   valId: 'ctv-panel' },
-  { id: 'ct-panel2',  var: '--panel2',  valId: 'ctv-panel2' },
-  { id: 'ct-border',  var: '--border',  valId: 'ctv-border' },
-  { id: 'ct-text',    var: '--text',    valId: 'ctv-text' },
-  { id: 'ct-muted',   var: '--muted',   valId: 'ctv-muted' },
-  { id: 'ct-accent',  var: '--accent',  valId: 'ctv-accent' },
-  { id: 'ct-accent2', var: '--accent2', valId: 'ctv-accent2' },
-  { id: 'ct-green',   var: '--green',   valId: 'ctv-green' },
-  { id: 'ct-bg3d',    var: '--bg-3d',   valId: 'ctv-bg3d' },
+  { id: 'ct-bg',      var: '--bg',      fillId: 'cbf-bg',      hexId: 'cbh-bg' },
+  { id: 'ct-panel',   var: '--panel',   fillId: 'cbf-panel',   hexId: 'cbh-panel' },
+  { id: 'ct-panel2',  var: '--panel2',  fillId: 'cbf-panel2',  hexId: 'cbh-panel2' },
+  { id: 'ct-border',  var: '--border',  fillId: 'cbf-border',  hexId: 'cbh-border' },
+  { id: 'ct-text',    var: '--text',    fillId: 'cbf-text',    hexId: 'cbh-text' },
+  { id: 'ct-muted',   var: '--muted',   fillId: 'cbf-muted',   hexId: 'cbh-muted' },
+  { id: 'ct-accent',  var: '--accent',  fillId: 'cbf-accent',  hexId: 'cbh-accent' },
+  { id: 'ct-accent2', var: '--accent2', fillId: 'cbf-accent2', hexId: 'cbh-accent2' },
+  { id: 'ct-green',   var: '--green',   fillId: 'cbf-green',   hexId: 'cbh-green' },
+  { id: 'ct-bg3d',    var: '--bg-3d',   fillId: 'cbf-bg3d',    hexId: 'cbh-bg3d' },
+  { id: 'ct-shadow',  var: '--shadow',  fillId: 'cbf-shadow',  hexId: 'cbh-shadow' },
 ];
 
-CUSTOM_FIELDS.forEach(({ id, valId, var: cssVar }) => {
+CUSTOM_FIELDS.forEach(({ id, fillId, hexId, var: cssVar }) => {
   document.getElementById(id).addEventListener('input', e => {
-    document.getElementById(valId).textContent = e.target.value;
-    if (cssVar === '--bg-3d') {
-      document.documentElement.style.setProperty('--bg-3d', e.target.value);
-      syncBg3d();
-    }
+    const val = e.target.value;
+    document.getElementById(fillId).style.background = val;
+    document.getElementById(hexId).textContent = val;
+    // Apply instantly
+    document.documentElement.style.setProperty(cssVar, val);
+    if (cssVar === '--bg-3d') syncBg3d();
+    // Mark custom as active
+    activeTheme = 'custom';
+    document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
+    document.getElementById('custom-swatch').classList.add('active');
+    const crtBtn = document.getElementById('crtBtn');
+    if (crtOn) { crtBtn.style.borderColor = 'var(--accent)'; crtBtn.style.color = 'var(--accent)'; }
     // Update the custom swatch dots live
     const dots = document.querySelectorAll('#custom-dots .theme-dot');
     const dotMap = { '--bg': 0, '--accent': 1, '--green': 2, '--text': 3 };
@@ -1653,22 +1724,6 @@ CUSTOM_FIELDS.forEach(({ id, valId, var: cssVar }) => {
       }
     });
   });
-});
-
-document.getElementById('apply-custom-btn').addEventListener('click', () => {
-  const root = document.documentElement;
-  CUSTOM_FIELDS.forEach(({ id, var: cssVar }) => {
-    root.style.setProperty(cssVar, document.getElementById(id).value);
-  });
-  activeTheme = 'custom';
-  document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
-  document.getElementById('custom-swatch').classList.add('active');
-  const crtBtn = document.getElementById('crtBtn');
-  if (crtOn) { crtBtn.style.borderColor = 'var(--accent)'; crtBtn.style.color = 'var(--accent)'; }
-  syncBg3d();
-  document.getElementById('theme-panel').classList.remove('open');
-  document.getElementById('themeBtn').style.borderColor = '';
-  document.getElementById('themeBtn').style.color = '';
 });
 
 buildThemePanel();
