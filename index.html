@@ -18,7 +18,7 @@
     --accent2: #ff3c5a;
     --accent3: #ffe066;
     --green:   #33ffb8;
-    --bg-3d:   #0a0a0f;
+    --bg-3d:   #4a4a7a;
     --shadow:  rgba(0,0,0,1);
     --text:    #c8c8e8;
     --muted:   #4a4a7a;
@@ -1061,7 +1061,7 @@
     flex: 1;
     font-family: var(--px);
     font-size: 8px;
-    color: var(--text);
+    color: var(--muted);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1093,6 +1093,7 @@
     outline: none;
   }
   .save-slot-del:hover { border-color: var(--accent2); color: var(--accent2); }
+  #save-name-input::placeholder { color: var(--muted); }
 
   /* ── WIREFRAME COMPOUND CONTROL ─────────────────────────────────────────── */
   #wire-control-wrap {
@@ -1230,9 +1231,11 @@
     <input type="range" id="size-slider" min="0.2" max="4" step="0.1" value="1">
   </label>
   <button class="tb-btn" id="crtBtn" style="border-color:var(--accent);color:var(--accent)">CRT: ON</button>
+  <button class="tb-btn" id="wireBtn">WIRE: ON</button>
   <button class="tb-btn" id="themeBtn">THEME</button>
   <button class="tb-btn" id="rotateBtn">SPIN: OFF</button>
   <button class="tb-btn danger" id="clearBtn">CLEAR</button>
+  <button class="tb-btn" id="helpBtn" title="Keyboard shortcuts (?)">?</button>
 </div>
 
 <!-- THEME PICKER -->
@@ -1287,9 +1290,9 @@
         <input type="color" id="ct-green" value="#33ffb8">
       </button>
       <button class="custom-btn" id="cb-bg3d">
-        <div class="custom-btn-fill" id="cbf-bg3d" style="background:#0a0a0f"></div>
-        <div class="custom-btn-label"><span class="custom-btn-name">3D BG</span><span class="custom-btn-hex" id="cbh-bg3d">#0a0a0f</span></div>
-        <input type="color" id="ct-bg3d" value="#0a0a0f">
+        <div class="custom-btn-fill" id="cbf-bg3d" style="background:#4a4a7a"></div>
+        <div class="custom-btn-label"><span class="custom-btn-name">3D BG</span><span class="custom-btn-hex" id="cbh-bg3d">#4a4a7a</span></div>
+        <input type="color" id="ct-bg3d" value="#4a4a7a">
       </button>
 
       <!-- SHADOW: compound color + alpha control (spans full width) -->
@@ -1562,26 +1565,25 @@ function wireToThreeColor() {
 }
 
 function updateWireframeColor() {
-  // Update grid
   const c = wireToThreeColor();
-  grid.material.color.set(c);
-  grid.material.opacity = wireAlpha * 0.7;  // grid lines slightly more subtle
+  const wasVisible = grid.visible;
+
+  // GridHelper bakes colors into vertex attributes — mutating .material.color has no effect.
+  // Recreate it entirely so the color always matches the guide wireframes.
+  scene.remove(grid);
+  grid.geometry.dispose();
+  if (Array.isArray(grid.material)) grid.material.forEach(m => m.dispose());
+  else grid.material.dispose();
+
+  grid = new THREE.GridHelper(6, 24, c, c);
   grid.material.transparent = true;
-  if (Array.isArray(grid.material)) {
-    grid.material.forEach(m => { m.color.set(c); m.opacity = wireAlpha * 0.7; m.transparent = true; });
-  }
+  grid.material.opacity = wireAlpha * 0.7;
+  if (Array.isArray(grid.material)) grid.material.forEach(m => { m.transparent = true; m.opacity = wireAlpha * 0.7; });
+  grid.position.y = -1;
+  grid.visible = wasVisible;
+  scene.add(grid);
 
-  // Update all guide group children
-  guideGroup.children.forEach(obj => {
-    if (obj.material) {
-      obj.material.color.set(c);
-      obj.material.opacity = wireAlpha * (obj.material.opacity > 0.3 ? 0.5 : 0.25);
-      obj.material.transparent = true;
-      obj.material.needsUpdate = true;
-    }
-  });
-
-  // Rebuild for a clean slate (handles structures built from sub-objects)
+  // Rebuild guides with new color (they read wireHex/wireAlpha fresh)
   buildGuides();
 }
 
@@ -1622,10 +1624,14 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 orbitControls.enableDamping = true;
 orbitControls.dampingFactor = 0.07;
 
-const grid = new THREE.GridHelper(6, 24, 0x2a2a45, 0x2a2a45);
+// Prevent middle-click from triggering browser autoscroll, which collapses the canvas
+renderer.domElement.addEventListener('mousedown', e => { if (e.button === 1) e.preventDefault(); });
+wrap.addEventListener('mousedown', e => { if (e.button === 1) e.preventDefault(); });
+
+let grid = new THREE.GridHelper(6, 24, 0x2a2a45, 0x2a2a45);
 grid.material.transparent = true;
-grid.material.opacity = 0.5;
-if (Array.isArray(grid.material)) grid.material.forEach(m=>{m.transparent=true;m.opacity=0.5;});
+grid.material.opacity = wireAlpha * 0.7;
+if (Array.isArray(grid.material)) grid.material.forEach(m=>{m.transparent=true;m.opacity=wireAlpha*0.7;});
 grid.position.y = -1;
 scene.add(grid);
 
@@ -1650,10 +1656,7 @@ function buildGuides() {
   const wa = wireAlpha;
   const wireMat = () => new THREE.MeshBasicMaterial({ color: wc, transparent: true, opacity: wa * 0.5 });
   const wireMatFaint = () => new THREE.MeshBasicMaterial({ color: wc, transparent: true, opacity: wa * 0.12, side: THREE.BackSide });
-  // Update grid to match
-  grid.material[0]?.color.set(wc); grid.material[1]?.color.set(wc);
-  if (grid.material.color) grid.material.color.set(wc);
-  if (Array.isArray(grid.material)) grid.material.forEach(m => { m.color.set(wc); m.opacity = wa * 0.6; m.transparent = true; });
+  // (grid is recreated in updateWireframeColor — no mutation needed here)
   if (vizMode === 'hsl-cylinder') {
     guideGroup.add(new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 2, 64, 1, true), wireMatFaint()));
     for (const y of [-1, 0, 1]) {
@@ -2275,6 +2278,17 @@ document.getElementById('crtBtn').addEventListener('click', () => {
   btn.style.color = crtOn ? 'var(--accent)' : '';
 });
 
+let wireOn = true;
+document.getElementById('wireBtn').addEventListener('click', () => {
+  wireOn = !wireOn;
+  grid.visible = wireOn;
+  guideGroup.visible = wireOn;
+  const btn = document.getElementById('wireBtn');
+  btn.textContent = `WIRE: ${wireOn ? 'ON' : 'OFF'}`;
+  btn.style.borderColor = wireOn ? 'var(--accent)' : '';
+  btn.style.color = wireOn ? 'var(--accent)' : '';
+});
+
 document.getElementById('clearBtn').addEventListener('click', () => {
   palette = []; deselectAll(); rebuildScene(); renderSwatches();
 });
@@ -2398,7 +2412,144 @@ wrap.addEventListener('click', e => {
     });
   } else { deselectAll(); }
 });
-window.addEventListener('keydown', e => { if(e.key==='Escape') deselectAll(); });
+// ─── KEYBOARD SHORTCUTS ──────────────────────────────────────────────────────
+window.addEventListener('keydown', e => {
+  // Never fire shortcuts when typing in an input or textarea
+  const tag = document.activeElement?.tagName;
+  const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable;
+
+  if (e.key === 'Escape') {
+    deselectAll();
+    document.getElementById('theme-panel').classList.remove('open');
+    document.getElementById('kb-help').style.display = 'none';
+    return;
+  }
+
+  // ? — toggle help overlay (always available)
+  if (e.key === '?' && !isTyping) {
+    const help = document.getElementById('kb-help');
+    help.style.display = help.style.display === 'flex' ? 'none' : 'flex';
+    return;
+  }
+
+  if (isTyping) return;
+
+  // Arrow keys — cycle through swatches
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    const next = selectedIndex < palette.length - 1 ? selectedIndex + 1 : 0;
+    selectColor(next);
+    document.querySelectorAll('.swatch-row').forEach(r => { if (+r.dataset.idx === next) r.scrollIntoView({ block: 'nearest' }); });
+    return;
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const prev = selectedIndex > 0 ? selectedIndex - 1 : palette.length - 1;
+    selectColor(prev);
+    document.querySelectorAll('.swatch-row').forEach(r => { if (+r.dataset.idx === prev) r.scrollIntoView({ block: 'nearest' }); });
+    return;
+  }
+
+  // Delete / Backspace — remove selected color
+  if ((e.key === 'Delete' || e.key === 'Backspace') && selectedIndex >= 0) {
+    e.preventDefault();
+    const idx = selectedIndex;
+    removeColor(idx);
+    if (palette.length > 0) selectColor(Math.min(idx, palette.length - 1));
+    return;
+  }
+
+  const ctrl = e.ctrlKey || e.metaKey;
+
+  // Ctrl+D — duplicate selected
+  if (ctrl && e.key === 'd') {
+    e.preventDefault();
+    document.getElementById('dup-btn').click();
+    return;
+  }
+
+  // Ctrl+Z — not implemented yet, but swallow to avoid browser undo confusion
+  // V — cycle viz mode
+  if (e.key === 'v') { document.getElementById('vizModeBtn').click(); return; }
+
+  // W — toggle wireframe
+  if (e.key === 'w') { document.getElementById('wireBtn').click(); return; }
+
+  // R — toggle spin/rotate
+  if (e.key === 'r') { document.getElementById('rotateBtn').click(); return; }
+
+  // C — toggle CRT
+  if (e.key === 'c') { document.getElementById('crtBtn').click(); return; }
+
+  // N — focus the new hex input
+  if (e.key === 'n') {
+    e.preventDefault();
+    document.getElementById('new-hex-input').focus();
+    document.getElementById('new-hex-input').select();
+    return;
+  }
+});
+
+// ─── HELP OVERLAY ────────────────────────────────────────────────────────────
+(function buildHelpOverlay() {
+  const overlay = document.createElement('div');
+  overlay.id = 'kb-help';
+  overlay.style.cssText = `
+    display:none; position:fixed; inset:0; z-index:5000;
+    background:rgba(0,0,0,0.82); align-items:center; justify-content:center;
+  `;
+  const box = document.createElement('div');
+  box.style.cssText = `
+    background:var(--panel); border:2px solid var(--accent);
+    border-bottom:5px solid var(--shadow); border-right:5px solid var(--shadow);
+    padding:24px 28px; min-width:320px; max-width:480px;
+    font-family:var(--px); color:var(--text);
+  `;
+  const title = document.createElement('div');
+  title.style.cssText = 'font-size:10px; color:var(--accent); margin-bottom:18px; letter-spacing:0.08em;';
+  title.textContent = 'KEYBOARD SHORTCUTS';
+  box.appendChild(title);
+
+  const shortcuts = [
+    ['↑ / ↓  or  ← / →', 'Cycle through swatches'],
+    ['DEL / BACKSPACE',   'Remove selected color'],
+    ['N',                 'Focus new color input'],
+    ['Ctrl + D',          'Duplicate selected color'],
+    ['V',                 'Cycle 3D view mode'],
+    ['W',                 'Toggle wireframes'],
+    ['R',                 'Toggle spin'],
+    ['C',                 'Toggle CRT effect'],
+    ['ESC',               'Deselect / close panels'],
+    ['?',                 'Toggle this help'],
+  ];
+
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:grid; grid-template-columns:auto 1fr; gap:8px 20px; align-items:center;';
+  shortcuts.forEach(([key, desc]) => {
+    const k = document.createElement('span');
+    k.style.cssText = 'font-size:8px; color:var(--accent); white-space:nowrap; text-shadow:1px 1px 0 var(--shadow);';
+    k.textContent = key;
+    const d = document.createElement('span');
+    d.style.cssText = 'font-size:7px; color:var(--muted);';
+    d.textContent = desc;
+    grid.appendChild(k);
+    grid.appendChild(d);
+  });
+  box.appendChild(grid);
+
+  const hint = document.createElement('div');
+  hint.style.cssText = 'margin-top:16px; font-size:7px; color:var(--muted); text-align:right;';
+  hint.textContent = 'PRESS ESC OR ? TO CLOSE';
+  box.appendChild(hint);
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.style.display = 'none'; });
+  document.getElementById('helpBtn').addEventListener('click', () => {
+    const help = document.getElementById('kb-help');
+    help.style.display = help.style.display === 'flex' ? 'none' : 'flex';
+  });
+})();
 
 // ─── RESIZE ──────────────────────────────────────────────────────────────────
 function resize() {
@@ -2428,39 +2579,39 @@ animate();
 const THEMES = [
   {
     id: 'midnight', name: 'MIDNIGHT',
-    vars: { '--bg':'#0a0a0f','--panel':'#0f0f1a','--panel2':'#14141f','--border':'#2a2a4a','--text':'#c8c8e8','--muted':'#4a4a7a','--accent':'#ff009f','--accent2':'#ff3c5a','--green':'#33ffb8','--bg-3d':'#0a0a0f','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#0a0a0f','--panel':'#0f0f1a','--panel2':'#14141f','--border':'#2a2a4a','--text':'#c8c8e8','--muted':'#4a4a7a','--accent':'#ff009f','--accent2':'#ff3c5a','--green':'#33ffb8','--bg-3d':'#4a4a7a','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'forest', name: 'FOREST',
-    vars: { '--bg':'#060f08','--panel':'#0a1a0d','--panel2':'#0f2014','--border':'#1a3d22','--text':'#b8e8c0','--muted':'#3a6644','--accent':'#00ff7a','--accent2':'#ffcc00','--green':'#80ffb0','--bg-3d':'#060f08','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#060f08','--panel':'#0a1a0d','--panel2':'#0f2014','--border':'#1a3d22','--text':'#b8e8c0','--muted':'#3a6644','--accent':'#00ff7a','--accent2':'#ffcc00','--green':'#80ffb0','--bg-3d':'#2a5c38','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'amber', name: 'AMBER',
-    vars: { '--bg':'#0f0a00','--panel':'#1a1200','--panel2':'#211800','--border':'#3d2e00','--text':'#f0d090','--muted':'#7a5c00','--accent':'#ffaa00','--accent2':'#ff5500','--green':'#ffe066','--bg-3d':'#0f0a00','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#0f0a00','--panel':'#1a1200','--panel2':'#211800','--border':'#3d2e00','--text':'#f0d090','--muted':'#7a5c00','--accent':'#ffaa00','--accent2':'#ff5500','--green':'#ffe066','--bg-3d':'#6a4e00','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'ocean', name: 'OCEAN',
-    vars: { '--bg':'#00080f','--panel':'#00101a','--panel2':'#001520','--border':'#003d5c','--text':'#a0d8f0','--muted':'#1a5070','--accent':'#00cfff','--accent2':'#ff4488','--green':'#00ffcc','--bg-3d':'#00080f','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#00080f','--panel':'#00101a','--panel2':'#001520','--border':'#003d5c','--text':'#a0d8f0','--muted':'#1a5070','--accent':'#00cfff','--accent2':'#ff4488','--green':'#00ffcc','--bg-3d':'#0a5070','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'void', name: 'VOID',
-    vars: { '--bg':'#000000','--panel':'#0a0a0a','--panel2':'#111111','--border':'#2a2a2a','--text':'#dddddd','--muted':'#444444','--accent':'#ffffff','--accent2':'#888888','--green':'#cccccc','--bg-3d':'#000000','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#000000','--panel':'#0a0a0a','--panel2':'#111111','--border':'#2a2a2a','--text':'#dddddd','--muted':'#444444','--accent':'#ffffff','--accent2':'#888888','--green':'#cccccc','--bg-3d':'#444444','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'crimson', name: 'CRIMSON',
-    vars: { '--bg':'#0f0004','--panel':'#1a0008','--panel2':'#22000c','--border':'#4a001a','--text':'#f0b0c0','--muted':'#7a2040','--accent':'#ff2255','--accent2':'#ff8800','--green':'#ff88aa','--bg-3d':'#0f0004','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#0f0004','--panel':'#1a0008','--panel2':'#22000c','--border':'#4a001a','--text':'#f0b0c0','--muted':'#7a2040','--accent':'#ff2255','--accent2':'#ff8800','--green':'#ff88aa','--bg-3d':'#6a1030','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'lavender', name: 'LAVENDER',
-    vars: { '--bg':'#07050f','--panel':'#100d1a','--panel2':'#151220','--border':'#352a55','--text':'#d0c8f0','--muted':'#5a4a88','--accent':'#bb88ff','--accent2':'#ff88cc','--green':'#88ffdd','--bg-3d':'#07050f','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#07050f','--panel':'#100d1a','--panel2':'#151220','--border':'#352a55','--text':'#d0c8f0','--muted':'#5a4a88','--accent':'#bb88ff','--accent2':'#ff88cc','--green':'#88ffdd','--bg-3d':'#5a4a88','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'slate', name: 'SLATE',
-    vars: { '--bg':'#080c10','--panel':'#0e1318','--panel2':'#131a20','--border':'#253040','--text':'#c0ccd8','--muted':'#405060','--accent':'#4488ff','--accent2':'#ff6644','--green':'#44ffcc','--bg-3d':'#080c10','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#080c10','--panel':'#0e1318','--panel2':'#131a20','--border':'#253040','--text':'#c0ccd8','--muted':'#405060','--accent':'#4488ff','--accent2':'#ff6644','--green':'#44ffcc','--bg-3d':'#405060','--shadow':'rgba(0,0,0,1)' }
   },
   {
     id: 'toxic', name: 'TOXIC',
-    vars: { '--bg':'#050a00','--panel':'#0a1400','--panel2':'#0f1c00','--border':'#2a4400','--text':'#ccff44','--muted':'#5a8800','--accent':'#aaff00','--accent2':'#ff4400','--green':'#eeff88','--bg-3d':'#050a00','--shadow':'rgba(0,0,0,1)' }
+    vars: { '--bg':'#050a00','--panel':'#0a1400','--panel2':'#0f1c00','--border':'#2a4400','--text':'#ccff44','--muted':'#5a8800','--accent':'#aaff00','--accent2':'#ff4400','--green':'#eeff88','--bg-3d':'#486600','--shadow':'rgba(0,0,0,1)' }
   },
   {
     // Light theme with semi-transparent coloured shadows — shows off the feature
@@ -2487,6 +2638,7 @@ function applyTheme(theme) {
   const crtBtn = document.getElementById('crtBtn');
   if (crtOn) { crtBtn.style.borderColor = 'var(--accent)'; crtBtn.style.color = 'var(--accent)'; }
   syncBg3d();
+  renderSaveSlots();
 
   // Sync shadow compound widget to the theme's shadow value
   const parsed = parseShadowVar(theme.vars['--shadow'] || 'rgba(0,0,0,1)');
@@ -2872,6 +3024,7 @@ function renderSaveSlots() {
     const name = document.createElement('span');
     name.className = 'save-slot-name';
     name.textContent = slot.name || 'UNTITLED';
+    name.style.color = 'var(--muted)';
     const count = document.createElement('span');
     count.className = 'save-slot-count';
     count.textContent = slot.colors.length + ' cols';
