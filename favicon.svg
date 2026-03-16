@@ -1,0 +1,34 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" fill="#0a0a0f"/>
+
+  <!-- Pixel grid 5x3 -->
+  <rect x="5"  y="7"  width="10" height="10" fill="#ff2244"/>
+  <rect x="16" y="7"  width="10" height="10" fill="#ff9900"/>
+  <rect x="27" y="7"  width="10" height="10" fill="#ffee22"/>
+  <rect x="38" y="7"  width="10" height="10" fill="#22cc44"/>
+  <rect x="49" y="7"  width="10" height="10" fill="#00aaff"/>
+
+  <rect x="5"  y="18" width="10" height="10" fill="#2266ff"/>
+  <rect x="16" y="18" width="10" height="10" fill="#6633ff"/>
+  <rect x="27" y="18" width="10" height="10" fill="#aa11ff"/>
+  <rect x="38" y="18" width="10" height="10" fill="#dd22aa"/>
+  <rect x="49" y="18" width="10" height="10" fill="#ff0088"/>
+
+  <rect x="5"  y="29" width="10" height="10" fill="#ff009f"/>
+  <rect x="16" y="29" width="10" height="10" fill="#33ffb8"/>
+  <rect x="27" y="29" width="10" height="10" fill="#ff3c5a"/>
+  <rect x="38" y="29" width="10" height="10" fill="#c8c8e8"/>
+  <rect x="49" y="29" width="10" height="10" fill="#14141f" stroke="#2a2a4a" stroke-width="1"/>
+
+  <!-- Corner brackets -->
+  <polyline points="5,13 5,7 11,7"     fill="none" stroke="#ff009f" stroke-width="2" stroke-linecap="square"/>
+  <polyline points="53,7 59,7 59,13"   fill="none" stroke="#ff009f" stroke-width="2" stroke-linecap="square"/>
+  <polyline points="5,35 5,39 11,39"   fill="none" stroke="#33ffb8" stroke-width="2" stroke-linecap="square"/>
+  <polyline points="53,39 59,39 59,35" fill="none" stroke="#33ffb8" stroke-width="2" stroke-linecap="square"/>
+
+  <!-- Outer frame -->
+  <rect x="4" y="6" width="56" height="34" fill="none" stroke="#2a2a4a" stroke-width="1.5"/>
+
+  <!-- PL label -->
+  <text x="32" y="57" font-family="'Press Start 2P', monospace" font-size="10" fill="#ff009f" text-anchor="middle">PL</text>
+</svg>
