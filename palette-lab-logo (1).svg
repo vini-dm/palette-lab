@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="486.15616"
+   height="115.31808"
+   viewBox="0 0 486.15616 115.31808"
+   version="1.1"
+   id="svg37"
+   sodipodi:docname="palette-lab-logo (1).svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview37"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="1.7001759"
+     inkscape:cx="-1.1763489"
+     inkscape:cy="130.28064"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg37" />
+  <defs
+     id="defs1">
+    <pattern
+       id="logo-dots"
+       width="10"
+       height="10"
+       patternUnits="userSpaceOnUse">
+      <circle
+         cx="5"
+         cy="5"
+         r="0.7"
+         fill="#00ff9f"
+         fill-opacity="0.045"
+         id="circle1" />
+    </pattern>
+    <pattern
+       id="logo-lines"
+       width="1"
+       height="5"
+       patternUnits="userSpaceOnUse">
+      <rect
+         width="1"
+         height="3"
+         fill="#000000"
+         fill-opacity="0.13"
+         id="rect1" />
+    </pattern>
+  </defs>
+  <style
+     id="style1">
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+    @keyframes logo-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    #logo-cur { animation: logo-blink 0.8s step-end infinite; }
+  </style>
+  <!-- Background -->
+  <!-- Grid drop-shadow -->
+  <rect
+     x="5.75"
+     y="6.318078"
+     width="134"
+     height="109"
+     fill="#000000"
+     opacity="0.5"
+     id="rect5" />
+  <!-- PIXEL GRID ICON — 5x4 color spectrum -->
+  <!-- Row 0: Red to Yellow -->
+  <rect
+     x="7.75"
+     y="8.318078"
+     width="22"
+     height="22"
+     fill="#ff2244"
+     id="rect6" />
+  <rect
+     x="32.75"
+     y="8.318078"
+     width="22"
+     height="22"
+     fill="#ff6622"
+     id="rect7" />
+  <rect
+     x="57.75"
+     y="8.318078"
+     width="22"
+     height="22"
+     fill="#ff9900"
+     id="rect8" />
+  <rect
+     x="82.75"
+     y="8.318078"
+     width="22"
+     height="22"
+     fill="#ffcc00"
+     id="rect9" />
+  <rect
+     x="107.74999"
+     y="8.318078"
+     width="22"
+     height="22"
+     fill="#ffee22"
+     id="rect10" />
+  <!-- Row 1: Yellow-Green to Cyan to Blue -->
+  <rect
+     x="7.75"
+     y="33.318077"
+     width="22"
+     height="22"
+     fill="#88ee00"
+     id="rect11" />
+  <rect
+     x="32.75"
+     y="33.318077"
+     width="22"
+     height="22"
+     fill="#22cc44"
+     id="rect12" />
+  <rect
+     x="57.75"
+     y="33.318077"
+     width="22"
+     height="22"
+     fill="#00cc88"
+     id="rect13" />
+  <rect
+     x="82.75"
+     y="33.318077"
+     width="22"
+     height="22"
+     fill="#00ddcc"
+     id="rect14" />
+  <rect
+     x="107.74999"
+     y="33.318077"
+     width="22"
+     height="22"
+     fill="#00aaff"
+     id="rect15" />
+  <!-- Row 2: Blue to Violet to Magenta -->
+  <rect
+     x="7.75"
+     y="58.318077"
+     width="22"
+     height="22"
+     fill="#2266ff"
+     id="rect16" />
+  <rect
+     x="32.75"
+     y="58.318077"
+     width="22"
+     height="22"
+     fill="#6633ff"
+     id="rect17" />
+  <rect
+     x="57.75"
+     y="58.318077"
+     width="22"
+     height="22"
+     fill="#aa11ff"
+     id="rect18" />
+  <rect
+     x="82.75"
+     y="58.318077"
+     width="22"
+     height="22"
+     fill="#dd22aa"
+     id="rect19" />
+  <rect
+     x="107.74999"
+     y="58.318077"
+     width="22"
+     height="22"
+     fill="#ff0088"
+     id="rect20" />
+  <!-- Row 3: App signature colors -->
+  <rect
+     x="7.75"
+     y="83.318077"
+     width="22"
+     height="22"
+     fill="#ff009f"
+     id="rect21" />
+  <rect
+     x="32.75"
+     y="83.318077"
+     width="22"
+     height="22"
+     fill="#33ffb8"
+     id="rect22" />
+  <rect
+     x="57.75"
+     y="83.318077"
+     width="22"
+     height="22"
+     fill="#ff3c5a"
+     id="rect23" />
+  <rect
+     x="82.75"
+     y="83.318077"
+     width="22"
+     height="22"
+     fill="#c8c8e8"
+     id="rect24" />
+  <rect
+     x="107.74999"
+     y="83.318077"
+     width="22"
+     height="22"
+     fill="#14141f"
+     stroke="#2a2a4a"
+     stroke-width="1.5"
+     id="rect25" />
+  <!-- Grid outer frame -->
+  <rect
+     x="1.7499993"
+     y="2.318078"
+     width="134"
+     height="109"
+     fill="none"
+     stroke="#2a2a4a"
+     stroke-width="3"
+     id="rect26" />
+  <rect
+     x="2.7499998"
+     y="3.318078"
+     width="132"
+     height="107"
+     fill="none"
+     stroke="#4a4a7a"
+     stroke-width="1"
+     opacity="0.35"
+     id="rect27" />
+  <!-- Corner brackets: top pink, bottom green -->
+  <polyline
+     points="36,78 36,64 50,64"
+     fill="none"
+     stroke="#ff009f"
+     stroke-width="3.5"
+     stroke-linecap="square"
+     stroke-linejoin="miter"
+     id="polyline27"
+     transform="translate(-34.25,-61.681922)" />
+  <polyline
+     points="156,64 170,64 170,78"
+     fill="none"
+     stroke="#ff009f"
+     stroke-width="3.5"
+     stroke-linecap="square"
+     stroke-linejoin="miter"
+     id="polyline28"
+     transform="translate(-34.25,-61.681922)" />
+  <polyline
+     points="36,159 36,173 50,173"
+     fill="none"
+     stroke="#33ffb8"
+     stroke-width="3.5"
+     stroke-linecap="square"
+     stroke-linejoin="miter"
+     id="polyline29"
+     style="stroke:#ffffff;stroke-opacity:1"
+     transform="translate(-34.25,-61.681922)" />
+  <polyline
+     points="156,173 170,173 170,159"
+     fill="none"
+     stroke="#33ffb8"
+     stroke-width="3.5"
+     stroke-linecap="square"
+     stroke-linejoin="miter"
+     id="polyline30"
+     style="stroke:#ffffff;stroke-opacity:1"
+     transform="translate(-34.25,-61.681922)" />
+  <!-- Text shadows -->
+  <!-- PALETTE -->
+  <!-- Separator -->
+  <!-- LAB -->
+  <!-- Blinking cursor -->
+  <!-- Tagline -->
+  <!-- Outer frame corner brackets -->
+  <text
+     x="165.85397"
+     y="46.5793"
+     font-family="'Press Start 2P', monospace"
+     font-size="22"
+     fill="#ff009f"
+     id="text32"
+     style="font-size:46.5793px;stroke-width:1.4556">PALETTE</text>
+  <text
+     x="157.84787"
+     y="122.89302"
+     font-family="'Press Start 2P', monospace"
+     font-size="54"
+     fill="#33ffb8"
+     id="text33"
+     style="font-size:64px;fill:#dbe3de">LAB</text>
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.36174;stroke-opacity:1"
+     id="rect37"
+     width="320.4379"
+     height="7.6475792"
+     x="165.71826"
+     y="45.80011" />
+</svg>
